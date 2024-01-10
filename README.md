@@ -16,4 +16,4 @@ Place the .exe & .dll in the location of the wbot bot.config json and execute.
 I'd recommend backuping your bot.config before you run this... just in case.
 
 You can reach me here:
-[telegram]: http://t.me/JoyangAR
+[Telegram](http://t.me/JoyangAR)
