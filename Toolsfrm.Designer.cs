@@ -119,6 +119,7 @@
             this.Controls.Add(this.ChkReplyUnread);
             this.Controls.Add(this.ChkGroupReply);
             this.Controls.Add(this.BtnBlockedTools);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(190, 220);
             this.MinimizeBox = false;

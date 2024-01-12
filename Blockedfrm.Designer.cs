@@ -152,6 +152,7 @@
             this.Controls.Add(this.BlockRemove);
             this.Controls.Add(this.BlockAdd);
             this.Controls.Add(this.BlockedList);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(235, 502);
             this.MinimumSize = new System.Drawing.Size(235, 502);
