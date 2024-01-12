@@ -29,7 +29,5 @@ namespace WbotMgr
             UserInput = null;
             Close();
         }
-
-        
     }
 }
