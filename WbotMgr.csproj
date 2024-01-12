@@ -62,6 +62,12 @@
     <Compile Include="Blockedfrm.Designer.cs">
       <DependentUpon>Blockedfrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DbleInputfrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DbleInputfrm.Designer.cs">
+      <DependentUpon>DbleInputfrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mainfrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Blockedfrm.resx">
       <DependentUpon>Blockedfrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DbleInputfrm.resx">
+      <DependentUpon>DbleInputfrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mainfrm.resx">
       <DependentUpon>Mainfrm.cs</DependentUpon>
