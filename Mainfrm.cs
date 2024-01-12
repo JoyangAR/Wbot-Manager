@@ -300,8 +300,10 @@ namespace WbotMgr
                     }
                     else
                     {
+                        //12_01_2024 1.0.0.1
                         // Handle the case where the value of TxtSeconds is not a valid number
-                        // You can show an error message or take some other action here.
+                        MessageBox.Show("The value in 'Afert Seconds' isn't valid!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        selectedSection.afterseconds = 0;
                     }
 
                     // Serialize the modified object back to JSON
@@ -468,7 +470,7 @@ namespace WbotMgr
 
             if (countname > 1)
             {
-                MessageBox.Show("Section Name already in use!");
+                MessageBox.Show("Section Name already in use!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 countname = 0;
             }
             else
