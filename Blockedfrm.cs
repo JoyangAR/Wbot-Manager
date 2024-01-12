@@ -144,30 +144,36 @@ namespace WbotMgr
                 // Get the number immediately below
                 string phoneNumber = currentItems[selectedIndex + 1];
 
-                //12_01_2024 1.0.0.1
-                // Create and show an instance of DbleInputForm for the user to enter contact values
-                DbleInputfrm contactInputForm = new DbleInputfrm();
-                contactInputForm.Text = "Contact Data";
-                contactInputForm.TextBoxInput1.Text = selectedName;
-                contactInputForm.TextBoxInput2.Text = phoneNumber;
-                contactInputForm.ShowDialog();
+                // Use the input form to get the new name
+                InputForm nameInputForm = new InputForm();
+                nameInputForm.Text = "Contact Name";
+                nameInputForm.TextBoxInput.Text = selectedName;
+                nameInputForm.ShowDialog();
 
-                if (!string.IsNullOrEmpty(contactInputForm.UserInput1) & !string.IsNullOrEmpty(contactInputForm.UserInput2))
+                if (!string.IsNullOrEmpty(nameInputForm.UserInput))
                 {
                     // Modify the name in currentItems
-                    currentItems[selectedIndex] = contactInputForm.UserInput1;
+                    currentItems[selectedIndex] = nameInputForm.UserInput;
 
-                    // Modify the number in currentItems
-                    currentItems[selectedIndex + 1] = contactInputForm.UserInput2;
+                    // Show another form to get the new number
+                    InputForm numberInputForm = new InputForm();
+                    numberInputForm.Text = "Contact Number";
+                    numberInputForm.TextBoxInput.Text = phoneNumber;
+                    numberInputForm.ShowDialog();
 
-                    // You can update the ListBox with the new data if necessary
-                    UpdateListBox();
+                    if (!string.IsNullOrEmpty(numberInputForm.UserInput))
+                    {
+                        // Modify the number in currentItems
+                        currentItems[selectedIndex + 1] = numberInputForm.UserInput;
 
+                        // You can update the ListBox with the new data if necessary
+                        UpdateListBox();
+                    }
                 }
             }
             else
             {
-                MessageBox.Show("An item must be selected!!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("An item must be selected!!");
             }
         }
 
@@ -205,7 +211,7 @@ namespace WbotMgr
             }
             else
             {
-                MessageBox.Show("An item must be selected!!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("An item must be selected!!");
             }
         }
 
@@ -322,7 +328,7 @@ namespace WbotMgr
             }
             else
             {
-                MessageBox.Show("An item must be selected!!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("An item must be selected!!");
             }
             }
     }
