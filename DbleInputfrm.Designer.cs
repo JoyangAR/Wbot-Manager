@@ -39,7 +39,7 @@
             this.BtnCancel.Location = new System.Drawing.Point(112, 105);
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(56, 33);
-            this.BtnCancel.TabIndex = 5;
+            this.BtnCancel.TabIndex = 4;
             this.BtnCancel.Text = "Cancel";
             this.BtnCancel.UseVisualStyleBackColor = true;
             this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
@@ -50,7 +50,7 @@
             this.BtnOk.Location = new System.Drawing.Point(12, 105);
             this.BtnOk.Name = "BtnOk";
             this.BtnOk.Size = new System.Drawing.Size(56, 33);
-            this.BtnOk.TabIndex = 4;
+            this.BtnOk.TabIndex = 3;
             this.BtnOk.Text = "Okey";
             this.BtnOk.UseVisualStyleBackColor = true;
             this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
@@ -60,16 +60,18 @@
             this.TextBoxInput1.Location = new System.Drawing.Point(12, 25);
             this.TextBoxInput1.Name = "TextBoxInput1";
             this.TextBoxInput1.Size = new System.Drawing.Size(156, 20);
-            this.TextBoxInput1.TabIndex = 3;
+            this.TextBoxInput1.TabIndex = 1;
+            this.TextBoxInput1.Click += new System.EventHandler(this.TextBoxInput1_Click);
+            this.TextBoxInput2.Click += new System.EventHandler(this.TextBoxInput1_Click);
             // 
             // TextBoxInput2
             // 
             this.TextBoxInput2.Location = new System.Drawing.Point(12, 65);
             this.TextBoxInput2.Name = "TextBoxInput2";
             this.TextBoxInput2.Size = new System.Drawing.Size(156, 20);
-            this.TextBoxInput2.TabIndex = 6;
+            this.TextBoxInput2.TabIndex = 2;
             // 
-            // DbleInputForm
+            // DbleInputfrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -80,7 +82,7 @@
             this.Controls.Add(this.BtnOk);
             this.Controls.Add(this.TextBoxInput1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "DbleInputForm";
+            this.Name = "DbleInputfrm";
             this.Text = "Input";
             this.ResumeLayout(false);
             this.PerformLayout();
