@@ -110,14 +110,23 @@ namespace WbotMgr
 
         private bool IsValidName(string name)
         {
-            // Check if the name contains only letters and has a maximum length of 3
-            return !string.IsNullOrEmpty(name) && name.All(char.IsLetter) && name.Length <= 3;
+            //13_01_2024
+            // Check if the name is only numeric or starts with a "+"
+            return !name.All(char.IsDigit) && !(name.StartsWith("+") && name.Substring(1).All(char.IsDigit));
+        }
+
+        private string CleanNumber(string number)
+        {
+            //13_01_2024
+            // Remove leading "+" and any occurrence of "-" or " " from the number
+            return number.TrimStart('+').Replace("-", "").Replace(" ", "");
         }
 
         private bool IsValidPhoneNumber(string phoneNumber)
         {
-            // Check if the phoneNumber is a valid number (more than 10 digits and only digits)
-            return !string.IsNullOrEmpty(phoneNumber) && phoneNumber.All(char.IsDigit) && phoneNumber.Length > 10;
+            //13_01_2024
+            // Check if the phoneNumber is a valid number (contains only digits, may start with '+' and can contain '-')
+            return !string.IsNullOrEmpty(phoneNumber) && phoneNumber.All(c => char.IsDigit(c) || c == '+' || c == '-' || c == ' ');
         }
 
         private string GetUniqueName(string baseName)
@@ -138,13 +147,14 @@ namespace WbotMgr
         {
             if (BlockedList.SelectedIndex != -1)
             {
+                // Get the contact name selected
                 string selectedName = BlockedList.SelectedItem.ToString();
                 int selectedIndex = currentItems.IndexOf(selectedName);
 
                 // Get the number immediately below
                 string phoneNumber = currentItems[selectedIndex + 1];
 
-                //12_01_2024 1.0.0.1
+                //12_01_2024
                 // Create and show an instance of DbleInputForm for the user to enter contact values
                 DbleInputfrm contactInputForm = new DbleInputfrm();
                 contactInputForm.Text = "Contact Data";
@@ -152,17 +162,35 @@ namespace WbotMgr
                 contactInputForm.TextBoxInput2.Text = phoneNumber;
                 contactInputForm.ShowDialog();
 
+                //13_01_2024
                 if (!string.IsNullOrEmpty(contactInputForm.UserInput1) & !string.IsNullOrEmpty(contactInputForm.UserInput2))
                 {
-                    // Modify the name in currentItems
-                    currentItems[selectedIndex] = contactInputForm.UserInput1;
+                    // Check if the name is valid
+                    if (IsValidName(contactInputForm.UserInput1))
+                    {
+                        // Check if the number is valid
+                        if (IsValidPhoneNumber(contactInputForm.UserInput2))
+                        {
+                            // Modify the name in currentItems
+                            currentItems[selectedIndex] = contactInputForm.UserInput1;
 
-                    // Modify the number in currentItems
-                    currentItems[selectedIndex + 1] = contactInputForm.UserInput2;
+                            // Modify the number in currentItems
+                            currentItems[selectedIndex + 1] = contactInputForm.UserInput2;
 
-                    // You can update the ListBox with the new data if necessary
-                    UpdateListBox();
-
+                            // You can update the ListBox with the new data if necessary
+                            UpdateListBox();
+                        }
+                        else
+                        {
+                            // Handle the case where the entered number is not valid
+                            MessageBox.Show("The entered number is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        // Handle the case where the entered name is not valid
+                        MessageBox.Show("The entered name is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else
@@ -211,33 +239,32 @@ namespace WbotMgr
 
         private void BlockAdd_Click(object sender, EventArgs e)
         {
-            // Create an instance of InputForm for the name
-            InputForm nameInputForm = new InputForm();
+            //13_01_2024
+            // Create and show an instance of DbleInputForm for the user to enter contact values
+            DbleInputfrm contactInputForm = new DbleInputfrm();
+            contactInputForm.Text = "Contact Data";
+            contactInputForm.TextBoxInput1.Text = "Name";
+            contactInputForm.TextBoxInput2.Text = "Number";
+            contactInputForm.delatfrstclic = true;
+            contactInputForm.ShowDialog();
 
-            // Set the prompt for the user to enter a name
-            nameInputForm.Text = "Enter Name";
-
-            // Show the InputForm for the user to enter a name
-            if (nameInputForm.ShowDialog() == DialogResult.OK)
+            if (!string.IsNullOrEmpty(contactInputForm.UserInput1) && !string.IsNullOrEmpty(contactInputForm.UserInput2))
             {
                 // Get the name entered by the user
-                string blockedName = nameInputForm.UserInput;
+                string blockedName = contactInputForm.UserInput1;
 
-                // Create an instance of InputForm for the number
-                InputForm numberInputForm = new InputForm();
+                // Get the number entered by the user
+                string blockedNumber = contactInputForm.UserInput2;
 
-                // Set the prompt for the user to enter a number
-                numberInputForm.Text = "Enter Number";
-
-                // Show the InputForm for the user to enter a number
-                if (numberInputForm.ShowDialog() == DialogResult.OK)
+                // Check if the name is valid
+                if (IsValidName(blockedName))
                 {
-                    // Get the number entered by the user
-                    string blockedNumber = numberInputForm.UserInput;
-
-                    // Check if the number is valid (you can add your own validation)
+                    // Check if the number is valid
                     if (IsValidPhoneNumber(blockedNumber))
                     {
+                        // Clean the number by removing invalid characters
+                        blockedNumber = CleanNumber(blockedNumber);
+
                         // Add the name and number to the blocked list in botConfig
                         currentItems.Add(blockedName);
                         currentItems.Add(blockedNumber);
@@ -250,6 +277,11 @@ namespace WbotMgr
                         // Handle the case where the entered number is not valid
                         MessageBox.Show("The entered number is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                }
+                else
+                {
+                    // Handle the case where the entered name is not valid
+                    MessageBox.Show("The entered name is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
