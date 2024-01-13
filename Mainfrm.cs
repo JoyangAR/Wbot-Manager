@@ -492,6 +492,7 @@ namespace WbotMgr
                     string newWord = inputForm.UserInput;
                     if (!string.IsNullOrEmpty(newWord))
                     {
+                        //13_01_2024
                         newWord = newWord.ToLower(); // Convert to lowercase
                         ExactListBox.Items.Add(newWord);
                     }
@@ -508,6 +509,7 @@ namespace WbotMgr
                     string newWord = inputForm.UserInput;
                     if (!string.IsNullOrEmpty(newWord))
                     {
+                        //13_01_2024
                         newWord = newWord.ToLower(); // Convert to lowercase
                         ContainsListBox.Items.Add(newWord);
                     }
@@ -618,36 +620,42 @@ namespace WbotMgr
 
         private void NameRemove_Click(object sender, EventArgs e)
         {
-            // Get the selected index in the ListBox
-            int selectedIndex = NameListBox.SelectedIndex;
+            //13_01_2024
+            // Get the selected item from the ListBox
+            string selectedSectionName = NameListBox.SelectedItem?.ToString();
 
             // Check if an item has been selected
-            if (selectedIndex >= 0 && selectedIndex < botConfig.bot.Count)
+            if (!string.IsNullOrEmpty(selectedSectionName))
             {
                 // Check if there is more than one section remaining
                 if (botConfig.bot.Count > 1)
                 {
-                    // Remove the selected section from the bot list
-                    botConfig.bot.RemoveAt(selectedIndex);
+                    // Find the section in botConfig.bot using the section name
+                    BotSection selectedSection = botConfig.bot.FirstOrDefault(section => section.sectionname == selectedSectionName);
 
-                    // Serialize the modified object back to JSON
-                    string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
+                    // Check if the section was found before making changes
+                    if (selectedSection != null)
+                    {
+                        // Remove the selected section from the bot list
+                        botConfig.bot.Remove(selectedSection);
 
-                    // File path where you want to save the updated JSON
-                    string jsonPath = "bot.json";
+                        // Serialize the modified object back to JSON
+                        string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
 
-                    // Write the updated JSON back to the file
-                    File.WriteAllText(jsonPath, updatedJson);
+                        // File path where you want to save the updated JSON
+                        string jsonPath = "bot.json";
 
-                    // Remove the section name from the ListBox
-                    NameListBox.Items.RemoveAt(selectedIndex);
+                        // Write the updated JSON back to the file
+                        File.WriteAllText(jsonPath, updatedJson);
 
-                    sectionItems.RemoveAt(selectedIndex);
+                        // Remove the section name from the ListBox
+                        NameListBox.Items.Remove(selectedSectionName);
+                    }
                 }
                 else
                 {
                     // Show a warning message if attempting to delete the last section
-                    MessageBox.Show("You cannot delete the last section.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("You cannot delete the last section!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
