@@ -481,7 +481,7 @@ namespace WbotMgr
 
         }
 
-        
+
 
         private void ExactAdd_Click(object sender, EventArgs e)
         {
@@ -492,6 +492,7 @@ namespace WbotMgr
                     string newWord = inputForm.UserInput;
                     if (!string.IsNullOrEmpty(newWord))
                     {
+                        newWord = newWord.ToLower(); // Convert to lowercase
                         ExactListBox.Items.Add(newWord);
                     }
                 }
@@ -507,6 +508,7 @@ namespace WbotMgr
                     string newWord = inputForm.UserInput;
                     if (!string.IsNullOrEmpty(newWord))
                     {
+                        newWord = newWord.ToLower(); // Convert to lowercase
                         ContainsListBox.Items.Add(newWord);
                     }
                 }
