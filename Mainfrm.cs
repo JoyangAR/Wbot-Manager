@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -823,6 +824,26 @@ namespace WbotMgr
                 // Handle the exception, for example, show an error message
                 MessageBox.Show($"Error opening the allowed form: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void BtnHints_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Hints for writing a response:\n\n" +
+     "• *Bold Text*: Surround the text with asterisks (*).\n" +
+     "• _Italic Text_: Surround the text with underscores (_).\n" +
+     "• ~Strikethrough Text~: Surround the text with tildes (~).\n" +
+     "• `Monospaced (Code) Text`: Enclose the text between three backticks (```).\n" +
+     "• `Highlight in Gray`: Surround the text with single backticks (`).\n" +
+     "• Unordered List: Use asterisks, hyphens, or plus signs at the beginning of each line.\n" +
+     "• Ordered List: Use numbers followed by periods at the beginning of each line.\n" +
+     "• Quote Text: Begin each line with the greater-than symbol (>).\n" +
+     "• Mention All Group Participants: Use @all.\n" +
+     "• Mention Sender's Name: Use [#name].\n" +
+     "• Mention Sender's Phone Number: Use [#phoneNumber].\n" +
+     "•  To create a new line, simply press Enter",
+    "WhatsApp Response Hints",
+    MessageBoxButtons.OK,
+    MessageBoxIcon.Information);
         }
     }
 

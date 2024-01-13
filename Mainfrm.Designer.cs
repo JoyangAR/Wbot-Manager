@@ -64,6 +64,7 @@ namespace WbotMgr
             this.BtnMoveUp = new System.Windows.Forms.Button();
             this.NameListBox = new System.Windows.Forms.ListBox();
             this.ExactRemove = new System.Windows.Forms.Button();
+            this.BtnHints = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -383,11 +384,22 @@ namespace WbotMgr
             this.ExactRemove.UseVisualStyleBackColor = true;
             this.ExactRemove.Click += new System.EventHandler(this.ExactRemove_Click);
             // 
+            // BtnHints
+            // 
+            this.BtnHints.Location = new System.Drawing.Point(859, 80);
+            this.BtnHints.Name = "BtnHints";
+            this.BtnHints.Size = new System.Drawing.Size(25, 25);
+            this.BtnHints.TabIndex = 33;
+            this.BtnHints.Text = "🛈";
+            this.BtnHints.UseVisualStyleBackColor = true;
+            this.BtnHints.Click += new System.EventHandler(this.BtnHints_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(896, 450);
+            this.Controls.Add(this.BtnHints);
             this.Controls.Add(this.NameListBox);
             this.Controls.Add(this.BtnMoveDown);
             this.Controls.Add(this.BtnMoveUp);
@@ -465,6 +477,7 @@ namespace WbotMgr
         private System.Windows.Forms.ListBox NameListBox;
         private System.Windows.Forms.Button ExactRemove;
         private ToolStripMenuItem allowedToolStripMenuItem;
+        private Button BtnHints;
     }
 }
 
