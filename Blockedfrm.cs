@@ -338,7 +338,7 @@ namespace WbotMgr
                 string phoneNumber = currentItems[selectedIndex + 1];
 
                 // Show another form to get the new number
-                InputForm numberInputForm = new InputForm();
+                Inputfrm numberInputForm = new Inputfrm();
                 numberInputForm.Text = "Contact Number";
                 numberInputForm.TextBoxInput.Text = phoneNumber;
                 numberInputForm.ShowDialog();

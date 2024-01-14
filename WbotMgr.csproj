@@ -80,11 +80,11 @@
     <Compile Include="Helpfrm.Designer.cs">
       <DependentUpon>Helpfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InputForm.cs">
+    <Compile Include="Inputfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InputForm.Designer.cs">
-      <DependentUpon>InputForm.cs</DependentUpon>
+    <Compile Include="Inputfrm.Designer.cs">
+      <DependentUpon>Inputfrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,8 +109,8 @@
     <EmbeddedResource Include="Helpfrm.resx">
       <DependentUpon>Helpfrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputForm.resx">
-      <DependentUpon>InputForm.cs</DependentUpon>
+    <EmbeddedResource Include="Inputfrm.resx">
+      <DependentUpon>Inputfrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
