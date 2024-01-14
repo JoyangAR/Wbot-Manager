@@ -19,6 +19,12 @@ To dive into the world of Wbot-Manager:
 
 > **Disclaimer:** Before you hit execute, maybe, just maybe, consider backing up your `bot.config`. You know, just in case.
 
+## Donations
+
+If you find Wbot-Manager somewhat useful (or not), and your heart (and wallet) is feeling generous, consider contributing to the cause. We believe in giving back, so 10% of all donations will go directly to the coding maestro [vasani-arpit](https://github.com/vasani-arpit).
+
+**Donate now and let the coding magic continue! [Donate here](https://www.paypal.me/JoyangAR)**
+
 ## Reach Out
 
 Questions, suggestions, or just want to chat? Catch me on [Telegram](http://t.me/JoyangAR). I promise I won't overwhelm you with tech jargon because, honestly, I don't know any either!
