@@ -62,7 +62,7 @@
             this.TextBoxInput1.Size = new System.Drawing.Size(156, 20);
             this.TextBoxInput1.TabIndex = 1;
             this.TextBoxInput1.Click += new System.EventHandler(this.TextBoxInput1_Click);
-            this.TextBoxInput2.Click += new System.EventHandler(this.TextBoxInput1_Click);
+            this.TextBoxInput1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxInput1_KeyDown);
             // 
             // TextBoxInput2
             // 
@@ -70,6 +70,8 @@
             this.TextBoxInput2.Name = "TextBoxInput2";
             this.TextBoxInput2.Size = new System.Drawing.Size(156, 20);
             this.TextBoxInput2.TabIndex = 2;
+            this.TextBoxInput2.Click += new System.EventHandler(this.TextBoxInput1_Click);
+            this.TextBoxInput2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxInput2_KeyDown);
             // 
             // DbleInputfrm
             // 

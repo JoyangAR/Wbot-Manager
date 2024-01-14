@@ -23,7 +23,8 @@ namespace WbotMgr
         {
             UserInput1 = TextBoxInput1.Text;
             UserInput2 = TextBoxInput2.Text;
-            Close();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         public void BtnCancel_Click(object sender, EventArgs e)
@@ -40,6 +41,23 @@ namespace WbotMgr
                 TextBoxInput1.Text = "";
                 TextBoxInput2.Text = "";
                 delatfrstclic = false;
+            }
+        }
+
+        private void TextBoxInput1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                TextBoxInput2.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TextBoxInput2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                BtnOk_Click(sender, e);
             }
         }
     }
