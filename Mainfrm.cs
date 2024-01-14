@@ -622,15 +622,18 @@ namespace WbotMgr
         private void NameRemove_Click(object sender, EventArgs e)
         {
             //13_01_2024
-            // Get the selected item from the ListBox
-            string selectedSectionName = NameListBox.SelectedItem?.ToString();
+            // Get the selected index in the ListBox
+            int selectedIndex = NameListBox.SelectedIndex;
 
             // Check if an item has been selected
-            if (!string.IsNullOrEmpty(selectedSectionName))
+            if (selectedIndex >= 0 && selectedIndex < botConfig.bot.Count)
             {
                 // Check if there is more than one section remaining
                 if (botConfig.bot.Count > 1)
                 {
+                    // Get the name of the section to be removed
+                    string selectedSectionName = NameListBox.Items[selectedIndex].ToString();
+
                     // Find the section in botConfig.bot using the section name
                     BotSection selectedSection = botConfig.bot.FirstOrDefault(section => section.sectionname == selectedSectionName);
 
@@ -650,7 +653,18 @@ namespace WbotMgr
                         File.WriteAllText(jsonPath, updatedJson);
 
                         // Remove the section name from the ListBox
-                        NameListBox.Items.Remove(selectedSectionName);
+                        NameListBox.Items.RemoveAt(selectedIndex);
+
+                        // Select the item immediately above in the ListBox
+                        if (selectedIndex > 0)
+                        {
+                            NameListBox.SelectedIndex = selectedIndex - 1;
+                        }
+                        else if (NameListBox.Items.Count > 0)
+                        {
+                            // If the first item was removed, select the new first item
+                            NameListBox.SelectedIndex = 0;
+                        }
                     }
                 }
                 else
@@ -660,6 +674,7 @@ namespace WbotMgr
                 }
             }
         }
+
 
 
         public void blockedToolStripMenuItem_Click(object sender, EventArgs e)
