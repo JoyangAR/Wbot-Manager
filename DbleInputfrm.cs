@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace WbotMgr
@@ -14,6 +8,7 @@ namespace WbotMgr
         public string UserInput1 { get; private set; }
         public string UserInput2 { get; private set; }
         public bool delatfrstclic;
+
         public DbleInputfrm()
         {
             InitializeComponent();
@@ -37,7 +32,7 @@ namespace WbotMgr
         private void TextBoxInput1_Click(object sender, EventArgs e)
         {
             if (delatfrstclic == true)
-                {
+            {
                 TextBoxInput1.Text = "";
                 TextBoxInput2.Text = "";
                 delatfrstclic = false;

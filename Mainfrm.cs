@@ -1,17 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace WbotMgr
 {
@@ -23,6 +17,7 @@ namespace WbotMgr
         {
             InitializeComponent();
         }
+
         private List<string> sectionItems = new List<string>();
         private List<string> groupItems = new List<string>();
 
@@ -109,7 +104,6 @@ namespace WbotMgr
             }
         }
 
-
         private string GetUniqueSectionName(string sectionName)
         {
             // If the name does not exist in the list, return it as is
@@ -162,7 +156,6 @@ namespace WbotMgr
 
             CmbGroupEdit.Items.Clear();
             CmbGroupEdit.Items.AddRange(groupItems.ToArray());
-
         }
 
         private void LoadAllSections()
@@ -392,8 +385,6 @@ namespace WbotMgr
             File.WriteAllText(jsonFilePath, updatedJson);
         }
 
-       
-
         private void NameListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get the selected index in the ListBox
@@ -453,12 +444,9 @@ namespace WbotMgr
                 }
             }
         }
-     
 
         public void ApplyChanges_Click(object sender, EventArgs e)
         {
-
-
             int countname = 0;
 
             foreach (var section in sectionItems)
@@ -466,7 +454,7 @@ namespace WbotMgr
                 if (section == TxtNameEdit.Text)
                 {
                     countname++;
-                }               
+                }
             }
 
             if (countname > 1)
@@ -478,11 +466,7 @@ namespace WbotMgr
             {
                 ApplyChanges();
             }
-
-
         }
-
-
 
         private void ExactAdd_Click(object sender, EventArgs e)
         {
@@ -605,7 +589,7 @@ namespace WbotMgr
 
             // Add the new section to the bot list
             botConfig.bot.Add(newSection);
-         
+
             // Add the name of the new section to the ListBox
             NameListBox.Items.Add(newSection.sectionname);
 
@@ -615,8 +599,6 @@ namespace WbotMgr
             sectionItems.Add(newSection.sectionname);
 
             NameAdd.Enabled = false;
-            
-
         }
 
         private void NameRemove_Click(object sender, EventArgs e)
@@ -674,8 +656,6 @@ namespace WbotMgr
                 }
             }
         }
-
-
 
         public void blockedToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -741,10 +721,10 @@ namespace WbotMgr
                 toolsForm.BringToFront();
             }
         }
+
         public void UpdateAppConfig(Toolsfrm toolsForm)
         {
             // Updates the application configuration (botConfig) with values from Toolsfrm
-
 
             // You can also save the configuration to the JSON file if needed
             string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
@@ -811,8 +791,6 @@ namespace WbotMgr
             MoveSection(1); // Move the section down
         }
 
-        
-
         public void allowedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -862,7 +840,6 @@ namespace WbotMgr
         }
     }
 
-
     public class AppConfig
     {
         public bool headless { get; set; }
@@ -897,12 +874,15 @@ namespace WbotMgr
         public List<string> contains { get; set; }
         public List<string> exact { get; set; }
         public string response { get; set; }
+
         [JsonConverter(typeof(FileConverter))]
         public List<string> file { get; set; }
+
         public int afterseconds { get; set; }
         public string webhook { get; set; }
         public bool responseAsCaption { get; set; }
     }
+
     public class FileConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
@@ -950,5 +930,4 @@ namespace WbotMgr
             }
         }
     }
-   
 }
