@@ -486,7 +486,7 @@ namespace WbotMgr
 
         private void ExactAdd_Click(object sender, EventArgs e)
         {
-            using (var inputForm = new InputForm())
+            using (var inputForm = new Inputfrm())
             {
                 if (inputForm.ShowDialog() == DialogResult.OK)
                 {
@@ -503,7 +503,7 @@ namespace WbotMgr
 
         private void ContainsAdd_Click(object sender, EventArgs e)
         {
-            using (var inputForm = new InputForm())
+            using (var inputForm = new Inputfrm())
             {
                 if (inputForm.ShowDialog() == DialogResult.OK)
                 {
@@ -782,7 +782,7 @@ namespace WbotMgr
         private void noMatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Create an instance of InputForm
-            InputForm inputForm = new InputForm();
+            Inputfrm inputForm = new Inputfrm();
 
             // Show the InputForm for the user to enter a value
             if (inputForm.ShowDialog() == DialogResult.OK)
