@@ -43,16 +43,6 @@ namespace WbotMgr
                 // Check if the file bot.json exists in the execution location
                 string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bot.json");
 
-                // Check if the file bot.json exists in the execution location
-                string dllFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Newtonsoft.Json.dll");
-
-                if (!File.Exists(jsonFilePath) || !File.Exists(dllFilePath))
-                {
-                    // Show a warning message if the file does not exist
-                    MessageBox.Show("The bot.json or Newtonsoft dll file was not found in the application location.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    Application.Exit();
-                }
-
                 // Read the content of the JSON file
                 string jsonContent = File.ReadAllText(jsonFilePath);
 
