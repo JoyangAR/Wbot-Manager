@@ -25,6 +25,8 @@ If you find Wbot-Manager somewhat useful (or not), and your heart (and wallet) i
 
 **Donate now and let the coding magic continue! [Donate here](https://www.paypal.me/JoyangAR)**
 
+> *Or, if you're feeling rebellious, you can donate directly to him. Just saying.*
+
 ## Reach Out
 
 Questions, suggestions, or just want to chat? Catch me on [Telegram](http://t.me/JoyangAR). I promise I won't overwhelm you with tech jargon because, honestly, I don't know any either!
