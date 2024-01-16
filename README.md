@@ -1,6 +1,6 @@
 # Wbot-Manager
 
-Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool for wrestling with the `bot.config` file of [WBOT](https://github.com/vasani-arpit/WBOT) by the coding sorcery of [vasani-arpit](https://github.com/vasani-arpit).
+Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool for wrestling with the `bot.json` file of [WBOT](https://github.com/vasani-arpit/WBOT) by the coding sorcery of [vasani-arpit](https://github.com/vasani-arpit).
 
 ![Wbot-Manager](https://github.com/JoyangAR/Wbot-Manager/assets/43119910/f31a3312-e20c-402d-a0e7-f7c33bc4179a)
 
@@ -14,10 +14,10 @@ Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool
 
 To dive into the world of Wbot-Manager:
 
-1. Drop the executable (.exe) and its sidekicks (.dll) in the same folder as your WBOT's secret diary – the `bot.config` JSON file.
+1. Drop the executable (.exe) and its sidekicks (.dll) in the same folder as your WBOT's secret diary – the `bot.json` JSON file.
 2. Hit that execution button. Simple, right?
 
-> **Disclaimer:** Before you hit execute, maybe, just maybe, consider backing up your `bot.config`. You know, just in case.
+> **Disclaimer:** Before you hit execute, maybe, just maybe, consider backing up your `bot.json`. You know, just in case.
 
 ## Donations
 
@@ -31,4 +31,4 @@ If you find Wbot-Manager somewhat useful (or not), and your heart (and wallet) i
 
 Questions, suggestions, or just want to chat? Catch me on [Telegram](http://t.me/JoyangAR). I promise I won't overwhelm you with tech jargon because, honestly, I don't know any either!
 
-Wbot-Manager – Because configuring the `bot.config` of WBOT should be as painless as possible. Or at least, we try!
+Wbot-Manager – Because configuring the `bot.json` of WBOT should be as painless as possible. Or at least, we try!
