@@ -8,7 +8,7 @@ Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool
 
 ## Key Features
 
-- **Pretty Basic Stuff:** Manage your bot's `bot.config` like a boss with Section Names and Section Groups. Nothing too fancy – just the essentials.
+- **Pretty Basic Stuff:** Manage your bot's `bot.json` like a boss with Section Names and Section Groups. Nothing too fancy – just the essentials.
 
 ## Getting Started
 
