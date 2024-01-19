@@ -8,7 +8,9 @@ Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool
 
 ## Key Features
 
-- **Pretty Basic Stuff:** Manage your bot's `bot.json` like a boss with Section Names and Section Groups. Nothing too fancy – just the essentials.
+- **Structured Response Sections:** Keep your responses organized with named sections and groups. It's like giving your replies a neat filing system.
+- **Named Contact Lists:** Easily manage blocked or allowed contacts by assigning names to them. No more guessing games!
+- **Effortless Reordering:** Move things around smoothly. Rearrange response sections, contacts, and groups with a simple up and down movement.
 
 ## Getting Started
 
