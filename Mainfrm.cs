@@ -19,7 +19,7 @@ namespace WbotMgr
             // Check if the file bot.json exists in the execution location
             string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bot.json");
 
-            // Check if the file bot.json exists in the execution location
+            // Check if the file Newtonsoft.Json.dll exists in the execution location
             string dllFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Newtonsoft.Json.dll");
 
             if (!File.Exists(jsonFilePath) || !File.Exists(dllFilePath))
@@ -40,7 +40,7 @@ namespace WbotMgr
         {
             try
             {
-                // Check if the file bot.json exists in the execution location
+                // Declare bot.json path
                 string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bot.json");
 
                 // Read the content of the JSON file
