@@ -11,14 +11,15 @@ namespace WbotMgr
 {
     public partial class MainForm : Form
     {
+        // Declare bot.json File Path
+        string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bot.json");
+
         public BotConfiguration botConfig;
 
         public MainForm()
         {
 
-            // Check if the file bot.json exists in the execution location
-            string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bot.json");
-
+            
             // Check if the file Newtonsoft.Json.dll exists in the execution location
             string dllFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Newtonsoft.Json.dll");
 
@@ -40,9 +41,7 @@ namespace WbotMgr
         {
             try
             {
-                // Declare bot.json path
-                string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bot.json");
-
+                
                 // Read the content of the JSON file
                 string jsonContent = File.ReadAllText(jsonFilePath);
 
@@ -309,9 +308,7 @@ namespace WbotMgr
                     // Serialize the modified object back to JSON
                     string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
 
-                    // File path where you want to save the updated JSON
-                    string jsonFilePath = "bot.json";
-
+                   
                     // Write the updated JSON back to the file
                     File.WriteAllText(jsonFilePath, updatedJson);
 
@@ -384,9 +381,7 @@ namespace WbotMgr
             // Serialize the modified object back to JSON
             string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
 
-            // Path to the file where you want to save the updated JSON
-            string jsonFilePath = "bot.json";
-
+           
             // Write the updated JSON back to the file
             File.WriteAllText(jsonFilePath, updatedJson);
         }
@@ -634,11 +629,8 @@ namespace WbotMgr
                         // Serialize the modified object back to JSON
                         string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
 
-                        // File path where you want to save the updated JSON
-                        string jsonPath = "bot.json";
-
                         // Write the updated JSON back to the file
-                        File.WriteAllText(jsonPath, updatedJson);
+                        File.WriteAllText(jsonFilePath, updatedJson);
 
                         // Remove the section name from the ListBox
                         NameListBox.Items.RemoveAt(selectedIndex);
@@ -734,7 +726,7 @@ namespace WbotMgr
 
             // You can also save the configuration to the JSON file if needed
             string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
-            File.WriteAllText("bot.json", updatedJson);
+            File.WriteAllText(jsonFilePath, updatedJson);
         }
 
         private void BtnDettach_Click(object sender, EventArgs e)
