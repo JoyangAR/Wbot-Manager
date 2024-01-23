@@ -24,13 +24,13 @@ namespace WbotMgr
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-                       
+            StartCountDown();
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
             // When the timer expires, show the main form and stop the timer
             timer.Stop();
-            ShowMainForm();
+            LoadXML();
         }
 
         public static SplashScreenfrm Instance { get; private set; }
@@ -133,7 +133,8 @@ namespace WbotMgr
         }
         #endregion
 
-        private void SplashScreenfrm_Load(object sender, EventArgs e)
+      
+        private void LoadXML()
         {
             // Check if WMgrConfig.xml exists
             if (File.Exists("WMgrConfig.xml"))
@@ -148,7 +149,7 @@ namespace WbotMgr
                 jsonFilePathSP = filePathNode.InnerText;
                 if (filePathNode != null)
                 {
-                   
+
                     if (!File.Exists(jsonFilePathSP))
                     {
                         // Show a warning message if the file does not exist
@@ -161,22 +162,22 @@ namespace WbotMgr
                     SetMainFormBaseDirectory();
 
                     // Show the MainForm
-                    StartCountDown();
+                    ShowMainForm();
                     return; // Exit the method to avoid showing OpenFileDialog
                 }
-
                 OpenFileBrowser();
             }
 
-          
+            OpenFileBrowser();
         }
+
 
         private void OpenFileBrowser()
         {
-
             // Configure the file dialog to open files
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "All files|*.*";
+            openFileDialog.Title = "Select desired bot.json";
+            openFileDialog.Filter = "json files|*.json";
 
             // Show the file dialog and check if the user selected a file
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -184,33 +185,46 @@ namespace WbotMgr
                 // Get the selected file path
                 string selectedFilePath = openFileDialog.FileName;
 
-                // Save File Path as a variable
-                jsonFilePathSP = selectedFilePath;
+                // Obtiene la extensión del archivo seleccionado
+                string fileExtension = Path.GetExtension(openFileDialog.FileName);
 
-                // Set the base directory of MainForm to the location of jsonFilePath
-                SetMainFormBaseDirectory();
+                // Verifica si la extensión es .json
+                if (string.Equals(fileExtension, ".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Save File Path as a variable
+                    jsonFilePathSP = selectedFilePath;
 
-                // Create a new XML document
-                XmlDocument xmlDoc = new XmlDocument();
+                    // Set the base directory of MainForm to the location of jsonFilePath
+                    SetMainFormBaseDirectory();
 
-                // Create the root element
-                XmlElement rootElement = xmlDoc.CreateElement("Configuration");
+                    // Create a new XML document
+                    XmlDocument xmlDoc = new XmlDocument();
 
-                // Create the "FilePath" element and set its value as the selected file path
-                XmlElement filePathElement = xmlDoc.CreateElement("jsonFilePath");
-                filePathElement.InnerText = selectedFilePath;
+                    // Create the root element
+                    XmlElement rootElement = xmlDoc.CreateElement("Configuration");
 
-                // Attach the "FilePath" element to the root element
-                rootElement.AppendChild(filePathElement);
+                    // Create the "FilePath" element and set its value as the selected file path
+                    XmlElement filePathElement = xmlDoc.CreateElement("jsonFilePath");
+                    filePathElement.InnerText = selectedFilePath;
 
-                // Attach the root element to the XML document
-                xmlDoc.AppendChild(rootElement);
+                    // Attach the "FilePath" element to the root element
+                    rootElement.AppendChild(filePathElement);
 
-                // Save the XML document to a file
-                xmlDoc.Save("WMgrConfig.xml");
+                    // Attach the root element to the XML document
+                    xmlDoc.AppendChild(rootElement);
 
-                // Show the MainForm
-                StartCountDown();
+                    // Save the XML document to a file
+                    xmlDoc.Save("WMgrConfig.xml");
+
+                    // Show the MainForm
+                    ShowMainForm();
+                }
+                else
+                {
+                    // Handle the case where the selected file does not have the correct extension
+                    MessageBox.Show("Please select a valid JSON file.", "Invalid File Type", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    OpenFileBrowser();
+                }
             }
             else
             {
@@ -221,7 +235,8 @@ namespace WbotMgr
         }
 
 
-private void SetMainFormBaseDirectory()
+
+        private void SetMainFormBaseDirectory()
         {
             // Set the base directory of MainForm to the location of jsonFilePath
             if (!string.IsNullOrEmpty(jsonFilePathSP))
