@@ -15,7 +15,8 @@ Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool
 ## Getting Started
 
 1. Place the executable (.exe) and its companions (.dll) in the same folder as your WBOT's `bot.json` file.
-2. Run the executable. Easy, right?
+2. Run the executable.
+3. If your `bot.json` file is not in the same folder as the executable, you will be prompted to choose its location when you start the program. Easy, right?
 
 > **Disclaimer:** Before you hit execute, maybe, just maybe, consider backing up your `bot.json`. You know, just in case.
 
