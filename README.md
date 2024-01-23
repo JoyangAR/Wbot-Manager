@@ -14,12 +14,14 @@ Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool
 
 ## Getting Started
 
-To dive into the world of Wbot-Manager:
-
-1. Drop the executable (.exe) and its sidekicks (.dll) in the same folder as your WBOT's secret diary – the `bot.json` JSON file.
-2. Hit that execution button. Simple, right?
+1. Place the executable (.exe) and its companions (.dll) in the same folder as your WBOT's `bot.json` file.
+2. Run the executable. Easy, right?
 
 > **Disclaimer:** Before you hit execute, maybe, just maybe, consider backing up your `bot.json`. You know, just in case.
+
+## Contributions
+
+Contributions are more than welcome! Feel free to submit pull requests, report issues, or enhance the magic.
 
 ## Donations
 
