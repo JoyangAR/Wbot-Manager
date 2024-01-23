@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 // The general information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WbotMgr")]
+[assembly: AssemblyTitle("Wbot Manager")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

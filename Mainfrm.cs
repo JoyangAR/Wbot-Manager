@@ -5,37 +5,44 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Windows.Forms;
+using System.Xml;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace WbotMgr
 {
     public partial class MainForm : Form
     {
-        // Declare bot.json File Path
-        string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bot.json");
-
+        string jsonFilePath = SplashScreenfrm.jsonFilePathSP;
+        string jsonBaseDirectory = SplashScreenfrm.BaseDirectorySP;
         public BotConfiguration botConfig;
-
+        private List<string> sectionItems = new List<string>();
+        private List<string> groupItems = new List<string>();
+        private List<string> generatedNames = new List<string>();
         public MainForm()
         {
-
-            
             // Check if the file Newtonsoft.Json.dll exists in the execution location
             string dllFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Newtonsoft.Json.dll");
 
-            if (!File.Exists(jsonFilePath) || !File.Exists(dllFilePath))
+            if (!File.Exists(dllFilePath))
             {
                 // Show a warning message if the file does not exist
-                MessageBox.Show("The bot.json or Newtonsoft.Json.dll file was not found in the application location.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("TheNewtonsoft.Json.dll file was not found in the application location.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.Close();
             }
             InitializeComponent();
+            this.FormClosed += MainForm_FormClosing;
         }
 
-        private List<string> sectionItems = new List<string>();
-        private List<string> groupItems = new List<string>();
+        private void MainForm_FormClosing(object sender, FormClosedEventArgs e)
+        {
 
-        private List<string> generatedNames = new List<string>();
+            SplashScreenfrm SplashForm = Application.OpenForms.OfType<SplashScreenfrm>().FirstOrDefault();
+            SplashForm.Close();
+        }
+
+       
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -107,8 +114,10 @@ namespace WbotMgr
                 // Handle the exception, for example, show an error message
                 MessageBox.Show($"Error loading configuration: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
+     
         private string GetUniqueSectionName(string sectionName)
         {
             // If the name does not exist in the list, return it as is
@@ -335,6 +344,7 @@ namespace WbotMgr
                 MessageBox.Show($"Error applying changes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             NameAdd.Enabled = true;
+
         }
 
         private void MoveSection(int offset)
@@ -537,8 +547,8 @@ namespace WbotMgr
                     AttachedFilesListBox.Items.Add(Path.GetFileName(selectedFilePath));
 
                     // Move the selected file to the application's location
-                    string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    string destinationPath = Path.Combine(appDirectory, Path.GetFileName(selectedFilePath));
+                    
+                    string destinationPath = Path.Combine(jsonBaseDirectory, Path.GetFileName(selectedFilePath));
 
                     try
                     {
