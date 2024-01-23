@@ -133,7 +133,7 @@ namespace WbotMgr
         }
         #endregion
 
-      
+
         private void LoadXML()
         {
             // Check if WMgrConfig.xml exists
@@ -146,29 +146,53 @@ namespace WbotMgr
                 XmlNode filePathNode = existingConfigXml.SelectSingleNode("/Configuration/jsonFilePath");
 
                 // Retrieve jsonFilePathSP from existing WMgrConfig.xml
-                jsonFilePathSP = filePathNode.InnerText;
-                if (filePathNode != null)
+                jsonFilePathSP = filePathNode?.InnerText;
+
+                if (!string.IsNullOrEmpty(jsonFilePathSP) && File.Exists(jsonFilePathSP))
                 {
-
-                    if (!File.Exists(jsonFilePathSP))
-                    {
-                        // Show a warning message if the file does not exist
-                        MessageBox.Show("The bot.json file was not found in the configured location.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        OpenFileBrowser();
-                        return;
-                    }
-
-                    // Set the base directory of MainForm to the location of jsonFilePath
+                    // The jsonFilePathSP is valid, set the base directory of MainForm and show the MainForm
                     SetMainFormBaseDirectory();
-
-                    // Show the MainForm
                     ShowMainForm();
                     return; // Exit the method to avoid showing OpenFileDialog
                 }
-                OpenFileBrowser();
             }
 
+            // If WMgrConfig.xml doesn't exist or jsonFilePathSP is invalid, check for bot.json in the app's startup location
+            string startupPath = AppDomain.CurrentDomain.BaseDirectory;
+            string botJsonPath = Path.Combine(startupPath, "bot.json");
+
+            if (File.Exists(botJsonPath))
+            {
+                // Set jsonFilePath
+                jsonFilePathSP = botJsonPath;
+
+                // Save bot.json path to the XML
+                SaveJsonPathToXml(botJsonPath);
+
+                // Set the base directory of MainForm to the location of bot.json
+                SetMainFormBaseDirectory();
+
+                // Show the MainForm
+                ShowMainForm();
+                return; // Exit the method to avoid showing OpenFileDialog
+            }
+
+            // If neither WMgrConfig.xml nor bot.json is found, open the file browser
             OpenFileBrowser();
+        }
+
+        private void SaveJsonPathToXml(string jsonPath)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+
+            XmlElement rootElement = xmlDoc.CreateElement("Configuration");
+            XmlElement filePathElement = xmlDoc.CreateElement("jsonFilePath");
+            filePathElement.InnerText = jsonPath;
+
+            rootElement.AppendChild(filePathElement);
+            xmlDoc.AppendChild(rootElement);
+
+            xmlDoc.Save("WMgrConfig.xml");
         }
 
 
