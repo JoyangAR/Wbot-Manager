@@ -125,6 +125,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(190, 220);
             this.Name = "Toolsfrm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tools";
             this.Load += new System.EventHandler(this.Toolsfrm_Load);

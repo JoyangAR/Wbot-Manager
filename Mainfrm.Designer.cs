@@ -256,35 +256,35 @@ namespace WbotMgr
             // blockedToolStripMenuItem
             // 
             this.blockedToolStripMenuItem.Name = "blockedToolStripMenuItem";
-            this.blockedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blockedToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.blockedToolStripMenuItem.Text = "Blocked";
             this.blockedToolStripMenuItem.Click += new System.EventHandler(this.blockedToolStripMenuItem_Click);
             // 
             // allowedToolStripMenuItem
             // 
             this.allowedToolStripMenuItem.Name = "allowedToolStripMenuItem";
-            this.allowedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allowedToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.allowedToolStripMenuItem.Text = "Allowed";
             this.allowedToolStripMenuItem.Click += new System.EventHandler(this.allowedToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.toolsToolStripMenuItem.Text = "Tools";
             this.toolsToolStripMenuItem.Click += new System.EventHandler(this.toolsToolStripMenuItem_Click);
             // 
             // noMatchToolStripMenuItem
             // 
             this.noMatchToolStripMenuItem.Name = "noMatchToolStripMenuItem";
-            this.noMatchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.noMatchToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.noMatchToolStripMenuItem.Text = "No Match";
             this.noMatchToolStripMenuItem.Click += new System.EventHandler(this.noMatchToolStripMenuItem_Click);
             // 
@@ -432,6 +432,7 @@ namespace WbotMgr
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wbot Manager";
             this.Load += new System.EventHandler(this.MainForm_Load);

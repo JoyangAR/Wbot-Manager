@@ -157,6 +157,7 @@
             this.MaximumSize = new System.Drawing.Size(235, 502);
             this.MinimumSize = new System.Drawing.Size(235, 502);
             this.Name = "Blockedfrm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Blocked";
             this.Load += new System.EventHandler(this.Blockedfrm_Load);

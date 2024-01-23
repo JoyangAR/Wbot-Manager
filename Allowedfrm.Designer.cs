@@ -156,6 +156,7 @@
             this.MaximumSize = new System.Drawing.Size(235, 502);
             this.MinimumSize = new System.Drawing.Size(235, 502);
             this.Name = "Allowedfrm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Allowed";
             this.Load += new System.EventHandler(this.Allowedfrm_Load);
