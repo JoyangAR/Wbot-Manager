@@ -116,6 +116,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashScreenfrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreenfrm.Designer.cs">
+      <DependentUpon>SplashScreenfrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Toolsfrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +142,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Helpfrm.resx">
       <DependentUpon>Helpfrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Inputfrm.resx">
       <DependentUpon>Inputfrm.cs</DependentUpon>
@@ -149,6 +156,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SplashScreenfrm.resx">
+      <DependentUpon>SplashScreenfrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Toolsfrm.resx">
       <DependentUpon>Toolsfrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -161,7 +171,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="WbotMgr_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
