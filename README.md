@@ -1,10 +1,20 @@
 # Wbot-Manager
 
+## Introduction
+
 Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool for wrestling with the `bot.json` file of [WBOT](https://github.com/vasani-arpit/WBOT) by the coding sorcery of [vasani-arpit](https://github.com/vasani-arpit).
 
-![Wbot-Manager](https://github.com/JoyangAR/Wbot-Manager/assets/43119910/f31a3312-e20c-402d-a0e7-f7c33bc4179a)
+![Main Example](https://github.com/JoyangAR/Wbot-Manager/assets/43119910/e1ce5c19-2911-41fb-b1f7-2d891cbdeda7)
+*Explore the main interface, offering an intuitive way to handle your `bot.json` settings. Effortlessly navigate and modify configurations to tailor WBOT according to your preferences.*
 
-> Apologies for the quality of the collage; I aimed for excellence. Stay tuned for a captivating gif! (or not, let's see how my artistic skills develop)
+![Blocked/Allowed Example](https://github.com/JoyangAR/Wbot-Manager/assets/43119910/2a94a62a-eeed-4c64-9e9f-02eb3ca04c2d)
+*Easily manage blocked contacts and streamline your interactions with this dedicated feature. Wbot-Manager simplifies the process of handling blocked/allowed contacts, providing a seamless user experience.*
+
+![Tools Section](https://github.com/JoyangAR/Wbot-Manager/assets/43119910/2d348628-4390-4cb6-86d4-86c44dc6b538)
+
+*Uncover additional tools within the application, enhancing your ability to fine-tune WBOT settings. These tools are designed to empower users, making Wbot-Manager an all-encompassing solution for WBOT enthusiasts.*
+
+> Note: Apologies for the quality of the gifs.
 
 ## Key Features
 
