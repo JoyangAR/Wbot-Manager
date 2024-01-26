@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -139,6 +140,23 @@ namespace WbotMgr
             return uniqueName;
         }
 
+        private string GetUniqueSectionName2(string baseName)
+        {
+            // Check if there is already a section with the base name
+            var existingNames = botConfig.bot.Select(section => section.sectionname).ToList();
+            string uniqueName = baseName;
+
+            // Find a unique suffix
+            int suffix = 1;
+            while (existingNames.Contains(uniqueName))
+            {
+                uniqueName = $"{baseName}_{suffix}";
+                suffix++;
+            }
+
+            return uniqueName;
+        }
+
         private void LoadSectionsAndGroups()
         {
             // Clear sectionItems and groupItems
@@ -158,7 +176,7 @@ namespace WbotMgr
                 .Where(section => section.sectiongroup != null)
                 .Select(section => section.sectiongroup)
                 .Distinct());
-            // Add "...." at the end of sections as showw all sections button
+            // Add "...." at the end of sections as show all sections button
             sectionItems.Add("....");
             // Add "----------------Groups-----------------" at the end of sections as division
             sectionItems.Add("----------------Groups-----------------");
@@ -344,7 +362,7 @@ namespace WbotMgr
                 MessageBox.Show($"Error applying changes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             NameAdd.Enabled = true;
-
+            NameListBox.Enabled = true;
         }
 
         private void MoveSection(int offset)
@@ -475,7 +493,14 @@ namespace WbotMgr
             }
             else
             {
-                ApplyChanges();
+                if (!string.IsNullOrEmpty(TxtNameEdit.Text))
+                {
+                    ApplyChanges();
+                }
+                else 
+                {
+                    MessageBox.Show("Section Name cannot be empty!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -586,10 +611,21 @@ namespace WbotMgr
 
         private void NameAdd_Click(object sender, EventArgs e)
         {
+            string varsectiongroup;
+            if (!string.IsNullOrEmpty(CmbGroupEdit.Text))
+            {
+                varsectiongroup = CmbGroupEdit.Text;
+            }
+            else
+            {
+                varsectiongroup = null;
+            }
+
             // Create a new instance of BotSection
             BotSection newSection = new BotSection
             {
-                sectionname = "DefaultName", // Default name
+                sectionname = GetUniqueSectionName2("DefaultName"), // Get a unique name
+                sectiongroup = varsectiongroup,
                 contains = new List<string>(),
                 exact = new List<string>(),
                 response = "",
@@ -598,70 +634,85 @@ namespace WbotMgr
                 responseAsCaption = false // Or adjust the default value as needed
             };
 
-            // Add the new section to the bot list
-            botConfig.bot.Add(newSection);
+            // Check if there is already a section with "..." or "...."
+            int indexToInsert = NameListBox.Items.Count; // Default: insert at the end
+
+            for (int i = 0; i < NameListBox.Items.Count; i++)
+            {
+                string itemName = NameListBox.Items[i].ToString();
+                if (itemName == "..." || itemName == "....")
+                {
+                    indexToInsert = i;
+                    break;
+                }
+            }
+
+            // Insert the new section at the appropriate position
+            botConfig.bot.Insert(indexToInsert, newSection);
 
             // Add the name of the new section to the ListBox
-            NameListBox.Items.Add(newSection.sectionname);
+            NameListBox.Items.Insert(indexToInsert, newSection.sectionname);
 
             // Select the new section in the ListBox
-            NameListBox.SelectedIndex = NameListBox.Items.Count - 1;
+            NameListBox.SelectedItem = newSection.sectionname;
 
             sectionItems.Add(newSection.sectionname);
 
             NameAdd.Enabled = false;
+            NameListBox.Enabled = false;
         }
+
+        
 
         private void NameRemove_Click(object sender, EventArgs e)
         {
-            //13_01_2024
-            // Get the selected index in the ListBox
-            int selectedIndex = NameListBox.SelectedIndex;
+            // Get the selected item in the ListBox
+            object selectedItem = NameListBox.SelectedItem;
 
             // Check if an item has been selected
-            if (selectedIndex >= 0 && selectedIndex < botConfig.bot.Count)
+            if (selectedItem != null)
             {
-                // Check if there is more than one section remaining
-                if (botConfig.bot.Count > 1)
+                // Convert the selected item to a string (assuming it contains text)
+                string selectedSectionName = selectedItem.ToString();
+
+                // Find the section in botConfig.bot using the section name
+                BotSection selectedSection = botConfig.bot.FirstOrDefault(section => section.sectionname == selectedSectionName);
+
+                // Check if the section was found before making changes
+                if (selectedSection != null)
                 {
-                    // Get the name of the section to be removed
-                    string selectedSectionName = NameListBox.Items[selectedIndex].ToString();
+                    // Remove the selected section from the bot list
+                    botConfig.bot.Remove(selectedSection);
 
-                    // Find the section in botConfig.bot using the section name
-                    BotSection selectedSection = botConfig.bot.FirstOrDefault(section => section.sectionname == selectedSectionName);
+                    // Serialize the modified object back to JSON
+                    string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
 
-                    // Check if the section was found before making changes
-                    if (selectedSection != null)
+                    // Write the updated JSON back to the file
+                    File.WriteAllText(jsonFilePath, updatedJson);
+
+                    // Remove the section name from the ListBox
+                    NameListBox.Items.Remove(selectedItem);
+
+                    // Select the item immediately above in the ListBox
+                    if (NameListBox.Items.Count > 0)
                     {
-                        // Remove the selected section from the bot list
-                        botConfig.bot.Remove(selectedSection);
-
-                        // Serialize the modified object back to JSON
-                        string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
-
-                        // Write the updated JSON back to the file
-                        File.WriteAllText(jsonFilePath, updatedJson);
-
-                        // Remove the section name from the ListBox
-                        NameListBox.Items.RemoveAt(selectedIndex);
-
-                        // Select the item immediately above in the ListBox
-                        if (selectedIndex > 0)
-                        {
-                            NameListBox.SelectedIndex = selectedIndex - 1;
-                        }
-                        else if (NameListBox.Items.Count > 0)
-                        {
-                            // If the first item was removed, select the new first item
-                            NameListBox.SelectedIndex = 0;
-                        }
+                        int selectedIndex = Math.Max(0, NameListBox.Items.IndexOf(selectedItem));
+                        NameListBox.SelectedIndex = Math.Min(selectedIndex, NameListBox.Items.Count - 1);
                     }
+                    else
+                    {
+                        // If the last item was removed, clear the selection
+                        NameListBox.SelectedIndex = -1;
+                    }
+
+                    NameAdd.Enabled = true;
+                    NameListBox.Enabled = true;
                 }
-                else
-                {
-                    // Show a warning message if attempting to delete the last section
-                    MessageBox.Show("You cannot delete the last section!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+            }
+            else
+            {
+                // Show a warning message if no item is selected
+                MessageBox.Show("Please select a section to delete.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

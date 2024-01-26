@@ -372,6 +372,7 @@ namespace WbotMgr
             this.NameListBox.Name = "NameListBox";
             this.NameListBox.Size = new System.Drawing.Size(140, 407);
             this.NameListBox.TabIndex = 32;
+            this.NameListBox.SelectedIndexChanged += new System.EventHandler(this.NameListBox_SelectedIndexChanged);
             // 
             // ExactRemove
             // 
