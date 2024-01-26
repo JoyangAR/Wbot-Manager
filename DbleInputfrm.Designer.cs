@@ -85,6 +85,7 @@
             this.Controls.Add(this.TextBoxInput1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "DbleInputfrm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Input";
             this.ResumeLayout(false);
             this.PerformLayout();
