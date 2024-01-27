@@ -30,6 +30,7 @@ namespace WbotMgr
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TxtNameEdit = new System.Windows.Forms.TextBox();
             this.ExactListBox = new System.Windows.Forms.ListBox();
             this.ExactAdd = new System.Windows.Forms.Button();
@@ -430,10 +431,10 @@ namespace WbotMgr
             this.Controls.Add(this.TxtNameEdit);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wbot Manager";
             this.Load += new System.EventHandler(this.MainForm_Load);
