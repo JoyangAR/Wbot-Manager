@@ -495,7 +495,11 @@ namespace WbotMgr
             {
                 if (!string.IsNullOrEmpty(TxtNameEdit.Text))
                 {
+                    // Save the selected name before applying changes
+                    string TxtName = TxtNameEdit.Text;
                     ApplyChanges();
+                    // Reset the selection to the previous selected element by name
+                    NameListBox.SelectedItem = TxtName;
                 }
                 else 
                 {
