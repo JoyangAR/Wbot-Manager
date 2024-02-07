@@ -35,6 +35,7 @@
             this.BtnApplyTools = new System.Windows.Forms.Button();
             this.ChkQuote = new System.Windows.Forms.CheckBox();
             this.BtnAllowedTools = new System.Windows.Forms.Button();
+            this.BtnServerTools = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnBlockedTools
@@ -50,7 +51,7 @@
             // ChkGroupReply
             // 
             this.ChkGroupReply.AutoSize = true;
-            this.ChkGroupReply.Location = new System.Drawing.Point(12, 53);
+            this.ChkGroupReply.Location = new System.Drawing.Point(12, 76);
             this.ChkGroupReply.Name = "ChkGroupReply";
             this.ChkGroupReply.Size = new System.Drawing.Size(85, 17);
             this.ChkGroupReply.TabIndex = 1;
@@ -60,7 +61,7 @@
             // ChkReplyUnread
             // 
             this.ChkReplyUnread.AutoSize = true;
-            this.ChkReplyUnread.Location = new System.Drawing.Point(12, 76);
+            this.ChkReplyUnread.Location = new System.Drawing.Point(12, 99);
             this.ChkReplyUnread.Name = "ChkReplyUnread";
             this.ChkReplyUnread.Size = new System.Drawing.Size(137, 17);
             this.ChkReplyUnread.TabIndex = 2;
@@ -70,7 +71,7 @@
             // ChkDownload
             // 
             this.ChkDownload.AutoSize = true;
-            this.ChkDownload.Location = new System.Drawing.Point(12, 99);
+            this.ChkDownload.Location = new System.Drawing.Point(12, 122);
             this.ChkDownload.Name = "ChkDownload";
             this.ChkDownload.Size = new System.Drawing.Size(106, 17);
             this.ChkDownload.TabIndex = 3;
@@ -79,7 +80,7 @@
             // 
             // BtnApplyTools
             // 
-            this.BtnApplyTools.Location = new System.Drawing.Point(48, 145);
+            this.BtnApplyTools.Location = new System.Drawing.Point(48, 168);
             this.BtnApplyTools.Name = "BtnApplyTools";
             this.BtnApplyTools.Size = new System.Drawing.Size(70, 26);
             this.BtnApplyTools.TabIndex = 4;
@@ -90,7 +91,7 @@
             // ChkQuote
             // 
             this.ChkQuote.AutoSize = true;
-            this.ChkQuote.Location = new System.Drawing.Point(12, 122);
+            this.ChkQuote.Location = new System.Drawing.Point(12, 145);
             this.ChkQuote.Name = "ChkQuote";
             this.ChkQuote.Size = new System.Drawing.Size(142, 17);
             this.ChkQuote.TabIndex = 5;
@@ -107,11 +108,22 @@
             this.BtnAllowedTools.UseVisualStyleBackColor = true;
             this.BtnAllowedTools.Click += new System.EventHandler(this.BtnAllowedTools_Click);
             // 
+            // BtnServerTools
+            // 
+            this.BtnServerTools.Location = new System.Drawing.Point(12, 44);
+            this.BtnServerTools.Name = "BtnServerTools";
+            this.BtnServerTools.Size = new System.Drawing.Size(70, 26);
+            this.BtnServerTools.TabIndex = 7;
+            this.BtnServerTools.Text = "Server";
+            this.BtnServerTools.UseVisualStyleBackColor = true;
+            this.BtnServerTools.Click += new System.EventHandler(this.BtnServerTools_Click);
+            // 
             // Toolsfrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(174, 181);
+            this.ClientSize = new System.Drawing.Size(174, 200);
+            this.Controls.Add(this.BtnServerTools);
             this.Controls.Add(this.BtnAllowedTools);
             this.Controls.Add(this.ChkQuote);
             this.Controls.Add(this.BtnApplyTools);
@@ -121,7 +133,7 @@
             this.Controls.Add(this.BtnBlockedTools);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(190, 220);
+            this.MaximumSize = new System.Drawing.Size(190, 260);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(190, 220);
             this.Name = "Toolsfrm";
@@ -143,5 +155,6 @@
         private System.Windows.Forms.Button BtnApplyTools;
         private System.Windows.Forms.CheckBox ChkQuote;
         private System.Windows.Forms.Button BtnAllowedTools;
+        private System.Windows.Forms.Button BtnServerTools;
     }
 }

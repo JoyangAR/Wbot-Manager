@@ -50,5 +50,46 @@ namespace WbotMgr
         {
             ParentForm2.allowedToolStripMenuItem_Click(sender, e);
         }
+
+        private void BtnServerTools_Click(object sender, EventArgs e)
+        {
+            string usrnme = ParentForm2.botConfig.appconfig.server.username;
+            string usrpwd = ParentForm2.botConfig.appconfig.server.password;
+            // Create and show an instance of DbleInputForm for the user to enter server credentials
+            DbleInputfrm credentialsInputForm = new DbleInputfrm();
+            credentialsInputForm.Text = "Server Credentials";
+            credentialsInputForm.TextBoxInput1.Text = usrnme;
+            credentialsInputForm.TextBoxInput2.Text = usrpwd;
+            credentialsInputForm.ShowDialog();
+
+            if (!string.IsNullOrEmpty(credentialsInputForm.UserInput1) & !string.IsNullOrEmpty(credentialsInputForm.UserInput2))
+            {
+                ParentForm2.botConfig.appconfig.server.username = credentialsInputForm.UserInput1;
+                ParentForm2.botConfig.appconfig.server.password = credentialsInputForm.UserInput2;
+            }
+
+            string svrport = ParentForm2.botConfig.appconfig.server.port.ToString();
+            // Create and show an instance of DbleInputForm for the user to enter server port
+            Inputfrm portInputForm = new Inputfrm();
+            portInputForm.Text = "Server Port";
+            portInputForm.TextBoxInput.Text = svrport;
+            portInputForm.ShowDialog();
+
+            if (!string.IsNullOrEmpty(portInputForm.UserInput))
+            {
+                // Try to convert the input value to an integer
+                if (int.TryParse(portInputForm.UserInput, out int newPort))
+                {
+                    // If the conversion is successful and the value is a number, update the port
+                    ParentForm2.botConfig.appconfig.server.port = newPort;
+                }
+                else
+                {
+                    // If the input value is not a number, display an error message
+                    MessageBox.Show("Please enter a valid number for the port.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
     }
 }
