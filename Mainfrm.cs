@@ -892,6 +892,7 @@ namespace WbotMgr
      "• Mention All Group Participants: Use @all.\n" +
      "• Mention Sender's Name: Use [#name].\n" +
      "• Mention Sender's Phone Number: Use [#phoneNumber].\n" +
+     "• `{op1|op2}` picks 'op1' or 'op2' or more.\n" +
      "•  To create a new line, simply press Enter",
     "WhatsApp Response Hints",
     MessageBoxButtons.OK,
