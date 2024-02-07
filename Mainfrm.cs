@@ -3,24 +3,22 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Windows.Forms;
-using System.Xml;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace WbotMgr
 {
     public partial class MainForm : Form
     {
-        string jsonFilePath = SplashScreenfrm.jsonFilePathSP;
-        string jsonBaseDirectory = SplashScreenfrm.BaseDirectorySP;
+        private string jsonFilePath = SplashScreenfrm.jsonFilePathSP;
+        private string jsonBaseDirectory = SplashScreenfrm.BaseDirectorySP;
         public BotConfiguration botConfig;
         private List<string> sectionItems = new List<string>();
         private List<string> groupItems = new List<string>();
         private List<string> generatedNames = new List<string>();
+
         public MainForm()
         {
             // Check if the file Newtonsoft.Json.dll exists in the execution location
@@ -33,29 +31,37 @@ namespace WbotMgr
                 SplashScreenfrm SplashForm = Application.OpenForms.OfType<SplashScreenfrm>().FirstOrDefault();
                 SplashForm.Close();
             }
-                InitializeComponent();
-                this.FormClosed += MainForm_FormClosing;
+            InitializeComponent();
+            this.FormClosed += MainForm_FormClosing;
         }
 
         private void MainForm_FormClosing(object sender, FormClosedEventArgs e)
         {
-
             SplashScreenfrm SplashForm = Application.OpenForms.OfType<SplashScreenfrm>().FirstOrDefault();
             SplashForm.Close();
         }
-
-       
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             try
             {
-                
                 // Read the content of the JSON file
                 string jsonContent = File.ReadAllText(jsonFilePath);
 
                 // Deserialize the JSON into a BotConfiguration object
                 botConfig = JsonConvert.DeserializeObject<BotConfiguration>(jsonContent);
+
+                // Make sure 'server' is initialized after deserializing 'botConfig'
+                if (botConfig.appconfig.server == null)
+                {
+                    botConfig.appconfig.server = new ServerConfig
+                    {
+                        // Here you can assign default values if you wish
+                        username = "admin",
+                        password = "admin",
+                        port = 8080
+                    };
+                }
 
                 bool hasGroups = botConfig.bot.Any(section => section.sectiongroup != null);
 
@@ -116,10 +122,8 @@ namespace WbotMgr
                 // Handle the exception, for example, show an error message
                 MessageBox.Show($"Error loading configuration: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
-     
         private string GetUniqueSectionName(string sectionName)
         {
             // If the name does not exist in the list, return it as is
@@ -335,7 +339,6 @@ namespace WbotMgr
                     // Serialize the modified object back to JSON
                     string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
 
-                   
                     // Write the updated JSON back to the file
                     File.WriteAllText(jsonFilePath, updatedJson);
 
@@ -409,7 +412,6 @@ namespace WbotMgr
             // Serialize the modified object back to JSON
             string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
 
-           
             // Write the updated JSON back to the file
             File.WriteAllText(jsonFilePath, updatedJson);
         }
@@ -501,7 +503,7 @@ namespace WbotMgr
                     // Reset the selection to the previous selected element by name
                     NameListBox.SelectedItem = TxtName;
                 }
-                else 
+                else
                 {
                     MessageBox.Show("Section Name cannot be empty!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -576,7 +578,7 @@ namespace WbotMgr
                     AttachedFilesListBox.Items.Add(Path.GetFileName(selectedFilePath));
 
                     // Move the selected file to the application's location
-                    
+
                     string destinationPath = Path.Combine(jsonBaseDirectory, Path.GetFileName(selectedFilePath));
 
                     try
@@ -665,8 +667,6 @@ namespace WbotMgr
             NameAdd.Enabled = false;
             NameListBox.Enabled = false;
         }
-
-        
 
         private void NameRemove_Click(object sender, EventArgs e)
         {
@@ -915,6 +915,7 @@ namespace WbotMgr
         public bool quoteMessageInReply { get; set; }
         public ServerConfig server { get; set; }
     }
+
     public class ServerConfig
     {
         public int port { get; set; }
