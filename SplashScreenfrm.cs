@@ -1,23 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using Timer = System.Windows.Forms.Timer;
 
 namespace WbotMgr
 {
-    partial class SplashScreenfrm : Form
+    internal partial class SplashScreenfrm : Form
     {
         public static string jsonFilePathSP = null;
         public static string BaseDirectorySP = null;
-        private Timer timer;   
+        private Timer timer;
+
         public SplashScreenfrm()
         {
             InitializeComponent();
@@ -27,9 +23,9 @@ namespace WbotMgr
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            StartCountDown();   
+            StartCountDown();
         }
-       
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             // When the timer expires, show the main form and stop the timer
@@ -61,6 +57,7 @@ namespace WbotMgr
                 this.Close();
             }
         }
+
         private bool IsAppRunning()
         {
             string appName = Process.GetCurrentProcess().ProcessName;
@@ -146,8 +143,8 @@ namespace WbotMgr
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-        #endregion
 
+        #endregion Descriptores de acceso de atributos de ensamblado
 
         private void LoadXML()
         {
@@ -210,7 +207,6 @@ namespace WbotMgr
             xmlDoc.Save("WMgrConfig.xml");
         }
 
-
         private void OpenFileBrowser()
         {
             // Configure the file dialog to open files
@@ -272,8 +268,6 @@ namespace WbotMgr
                 Application.Exit();
             }
         }
-
-
 
         private void SetMainFormBaseDirectory()
         {
