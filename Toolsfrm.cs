@@ -53,43 +53,61 @@ namespace WbotMgr
 
         private void BtnServerTools_Click(object sender, EventArgs e)
         {
-            string usrnme = ParentForm2.botConfig.appconfig.server.username;
-            string usrpwd = ParentForm2.botConfig.appconfig.server.password;
+            // Default values
+            string defaultUsername = "admin";
+            string defaultPassword = "admin";
+            int defaultPort = 8080;
+
+            // Get current values or assign defaults if empty
+            string username = string.IsNullOrEmpty(ParentForm2.botConfig.appconfig.server.username) ? defaultUsername : ParentForm2.botConfig.appconfig.server.username;
+            string password = string.IsNullOrEmpty(ParentForm2.botConfig.appconfig.server.password) ? defaultPassword : ParentForm2.botConfig.appconfig.server.password;
+            string serverPort = ParentForm2.botConfig.appconfig.server.port <= 0 ? defaultPort.ToString() : ParentForm2.botConfig.appconfig.server.port.ToString();
+
             // Create and show an instance of DbleInputForm for the user to enter server credentials
             DbleInputfrm credentialsInputForm = new DbleInputfrm();
             credentialsInputForm.Text = "Server Credentials";
-            credentialsInputForm.TextBoxInput1.Text = usrnme;
-            credentialsInputForm.TextBoxInput2.Text = usrpwd;
+            credentialsInputForm.TextBoxInput1.Text = username;
+            credentialsInputForm.TextBoxInput2.Text = password;
             credentialsInputForm.ShowDialog();
 
-            if (!string.IsNullOrEmpty(credentialsInputForm.UserInput1) & !string.IsNullOrEmpty(credentialsInputForm.UserInput2))
+            if (!string.IsNullOrEmpty(credentialsInputForm.UserInput1) && !string.IsNullOrEmpty(credentialsInputForm.UserInput2))
             {
                 ParentForm2.botConfig.appconfig.server.username = credentialsInputForm.UserInput1;
                 ParentForm2.botConfig.appconfig.server.password = credentialsInputForm.UserInput2;
             }
+            else
+            {
+                // Assign default values if fields are empty
+                ParentForm2.botConfig.appconfig.server.username = defaultUsername;
+                ParentForm2.botConfig.appconfig.server.password = defaultPassword;
+            }
 
-            string svrport = ParentForm2.botConfig.appconfig.server.port.ToString();
-            // Create and show an instance of DbleInputForm for the user to enter server port
+            // Create and show an instance of InputForm for the user to enter server port
             Inputfrm portInputForm = new Inputfrm();
             portInputForm.Text = "Server Port";
-            portInputForm.TextBoxInput.Text = svrport;
+            portInputForm.TextBoxInput.Text = serverPort;
             portInputForm.ShowDialog();
 
             if (!string.IsNullOrEmpty(portInputForm.UserInput))
             {
                 // Try to convert the input value to an integer
-                if (int.TryParse(portInputForm.UserInput, out int newPort))
+                if (int.TryParse(portInputForm.UserInput, out int newPort) && newPort > 0)
                 {
-                    // If the conversion is successful and the value is a number, update the port
+                    // If the conversion is successful and the value is a valid number, update the port
                     ParentForm2.botConfig.appconfig.server.port = newPort;
                 }
                 else
                 {
-                    // If the input value is not a number, display an error message
+                    // If the input value is not a valid number, display an error message and set default port
                     MessageBox.Show("Please enter a valid number for the port.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ParentForm2.botConfig.appconfig.server.port = defaultPort;
                 }
             }
-
+            else
+            {
+                // If the user doesn't input a new value, assign the default port
+                ParentForm2.botConfig.appconfig.server.port = defaultPort;
+            }
         }
     }
 }
