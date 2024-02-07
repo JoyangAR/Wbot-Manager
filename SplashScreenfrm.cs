@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using Timer = System.Windows.Forms.Timer;
 
 namespace WbotMgr
 {
@@ -14,7 +17,7 @@ namespace WbotMgr
     {
         public static string jsonFilePathSP = null;
         public static string BaseDirectorySP = null;
-        private Timer timer;
+        private Timer timer;   
         public SplashScreenfrm()
         {
             InitializeComponent();
@@ -24,8 +27,9 @@ namespace WbotMgr
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            StartCountDown();
+            StartCountDown();   
         }
+       
         private void Timer_Tick(object sender, EventArgs e)
         {
             // When the timer expires, show the main form and stop the timer
@@ -51,6 +55,17 @@ namespace WbotMgr
             mainForm.Show();
             this.Hide();
             mainForm.Focus();
+            if (IsAppRunning())
+            {
+                MessageBox.Show("The application is already running.");
+                this.Close();
+            }
+        }
+        private bool IsAppRunning()
+        {
+            string appName = Process.GetCurrentProcess().ProcessName;
+            // Get the number of processes with the same name as this one
+            return Process.GetProcessesByName(appName).Length > 1;
         }
 
         #region Descriptores de acceso de atributos de ensamblado
@@ -272,6 +287,5 @@ namespace WbotMgr
                 }
             }
         }
-
     }
 }
