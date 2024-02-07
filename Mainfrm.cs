@@ -30,10 +30,11 @@ namespace WbotMgr
             {
                 // Show a warning message if the file does not exist
                 MessageBox.Show("TheNewtonsoft.Json.dll file was not found in the application location.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.Close();
+                SplashScreenfrm SplashForm = Application.OpenForms.OfType<SplashScreenfrm>().FirstOrDefault();
+                SplashForm.Close();
             }
-            InitializeComponent();
-            this.FormClosed += MainForm_FormClosing;
+                InitializeComponent();
+                this.FormClosed += MainForm_FormClosing;
         }
 
         private void MainForm_FormClosing(object sender, FormClosedEventArgs e)
@@ -326,7 +327,6 @@ namespace WbotMgr
                     }
                     else
                     {
-                        //12_01_2024 1.0.0.1
                         // Handle the case where the value of TxtSeconds is not a valid number
                         MessageBox.Show("The value in 'Afert Seconds' isn't valid!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         selectedSection.afterseconds = 0;
@@ -908,6 +908,13 @@ namespace WbotMgr
         public bool replyUnreadMsg { get; set; }
         public string CustomInjectionFolder { get; set; }
         public bool quoteMessageInReply { get; set; }
+        public ServerConfig server { get; set; }
+    }
+    public class ServerConfig
+    {
+        public int port { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
     }
 
     public class SmartReply
