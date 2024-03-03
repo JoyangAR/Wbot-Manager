@@ -24,9 +24,11 @@ Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool
 
 ## Getting Started
 
-1. Place the executable (.exe) and its companions (.dll) in the same folder as your WBOT's `bot.json` file.
-2. Run the executable.
-3. If your `bot.json` file is not in the same folder as the executable, you will be prompted to choose its location when you start the program. Easy, right?
+1. Visit https://visualstudio.microsoft.com/downloads/ and download the free community version of Visual Studio.
+2. Open the WbotMgr.sln file in Visual Studio, and click on Build >> Build Solution (or simply press Cntrl + Shift + B). The executable file will be created in bin >> Debug.
+3. Place the executable (.exe) and its companions (.dll) in the same folder as your WBOT's `bot.json` file.
+4. Run the executable.
+5. If your `bot.json` file is not in the same folder as the executable, you will be prompted to choose its location when you start the program. Easy, right?
 
 > **Disclaimer:** Before you hit execute, maybe, just maybe, consider backing up your `bot.json`. You know, just in case.
 
