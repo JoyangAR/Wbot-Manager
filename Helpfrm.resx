@@ -138,10 +138,14 @@
 
 ✱Blocked: Array of numbers with county code to which this bot will not reply to.
 
+✱Allowed: If not empty, only messages from numbers in this list will be replied to.
+
 ✱NoMatch: Default reply message or spintax when no exact match found in WBOT.
 
 ✱Quote Message In Reply: Include this feature in your reply to quote the received message.
 
-✱Allowed: Array of numbers with county code to which this bot will only reply to.</value>
+✱Webhook: A URL which will be called for every message with payload data. This can be useful if you want to do other operation over messages in your server.
+
+✱CustomInjectionFolder relative path of the folder from current directory which has JS file which needs to be injected in the browser.</value>
   </data>
 </root>
