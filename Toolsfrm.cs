@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing.Text;
+using System.Web;
 using System.Windows.Forms;
 
 namespace WbotMgr
@@ -7,12 +9,13 @@ namespace WbotMgr
     {
         // Property to store a reference to the MainForm form
         public MainForm ParentForm2 { get; set; }
-
+        
         public Toolsfrm()
         {
             InitializeComponent();
         }
-
+        private string injectionfolder;
+        private string webhook;
         private void Toolsfrm_Load(object sender, EventArgs e)
         {
             // Make sure to reflect the current state of AppConfig in the CheckBoxes
@@ -20,6 +23,18 @@ namespace WbotMgr
             ChkDownload.Checked = ParentForm2.botConfig.appconfig.downloadMedia;
             ChkReplyUnread.Checked = ParentForm2.botConfig.appconfig.replyUnreadMsg;
             ChkQuote.Checked = ParentForm2.botConfig.appconfig.quoteMessageInReply;
+            ChkHeadless.Checked = ParentForm2.botConfig.appconfig.headless;
+            // If CustomInjectionFolder is not empty, store it in the injectionfolder variable
+            if (!string.IsNullOrEmpty(ParentForm2.botConfig.appconfig.CustomInjectionFolder))
+            {
+                injectionfolder = ParentForm2.botConfig.appconfig.CustomInjectionFolder;
+            }
+
+            // If webhook is not empty, store it in the webhook variable
+            if (!string.IsNullOrEmpty(ParentForm2.botConfig.appconfig.webhook))
+            {
+                webhook = ParentForm2.botConfig.appconfig.webhook;
+            }
         }
 
         private void BtnApplyTools_Click(object sender, EventArgs e)
@@ -31,6 +46,9 @@ namespace WbotMgr
                 ParentForm2.botConfig.appconfig.downloadMedia = ChkDownload.Checked;
                 ParentForm2.botConfig.appconfig.replyUnreadMsg = ChkReplyUnread.Checked;
                 ParentForm2.botConfig.appconfig.quoteMessageInReply = ChkQuote.Checked;
+                ParentForm2.botConfig.appconfig.headless = ChkHeadless.Checked;
+                ParentForm2.botConfig.appconfig.CustomInjectionFolder = injectionfolder;
+                ParentForm2.botConfig.appconfig.webhook = webhook;
                 ParentForm2.ApplyChanges(); // Apply the changes
                 this.Close(); // Close the Toolsfrm form
             }
@@ -107,6 +125,39 @@ namespace WbotMgr
             {
                 // If the user doesn't input a new value, assign the default port
                 ParentForm2.botConfig.appconfig.server.port = defaultPort;
+            }
+        }
+
+        private void BtnInjection_Click(object sender, EventArgs e)
+        {
+            // Create a new FolderBrowserDialog
+            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
+            {
+                // Show the dialog
+                DialogResult result = folderBrowserDialog.ShowDialog();
+
+                // If the user clicked "OK" in the dialog
+                if (result == DialogResult.OK)
+                {
+                   // Save the selected location to CustomInjectionFolder
+                   injectionfolder = folderBrowserDialog.SelectedPath;
+                }
+            }
+        }
+
+        private void BtnWebhook_Click(object sender, EventArgs e)
+        {
+            // Show an input form to get the new webhook link
+            Inputfrm webhookInputForm = new Inputfrm();
+            webhookInputForm.Text = "Webhook";
+            webhookInputForm.TextBoxInput.Text = webhook;
+            webhookInputForm.ShowDialog();
+
+            if (!string.IsNullOrEmpty(webhookInputForm.UserInput))
+            {
+                // Modify the link in webhook
+               webhook = webhookInputForm.UserInput;
+                                
             }
         }
     }
