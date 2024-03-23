@@ -22,7 +22,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -57,7 +57,7 @@
     <ManifestKeyFile>WbotMgr_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -85,73 +85,73 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Allowedfrm.cs">
+    <Compile Include="src\Allowedfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Allowedfrm.Designer.cs">
+    <Compile Include="src\Allowedfrm.Designer.cs">
       <DependentUpon>Allowedfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Blockedfrm.cs">
+    <Compile Include="src\Blockedfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Blockedfrm.Designer.cs">
+    <Compile Include="src\Blockedfrm.Designer.cs">
       <DependentUpon>Blockedfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DbleInputfrm.cs">
+    <Compile Include="src\DbleInputfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DbleInputfrm.Designer.cs">
+    <Compile Include="src\DbleInputfrm.Designer.cs">
       <DependentUpon>DbleInputfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mainfrm.cs">
+    <Compile Include="src\Mainfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Mainfrm.Designer.cs">
+    <Compile Include="src\Mainfrm.Designer.cs">
       <DependentUpon>Mainfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpfrm.cs">
+    <Compile Include="src\Helpfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Helpfrm.Designer.cs">
+    <Compile Include="src\Helpfrm.Designer.cs">
       <DependentUpon>Helpfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Inputfrm.cs">
+    <Compile Include="src\Inputfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Inputfrm.Designer.cs">
+    <Compile Include="src\Inputfrm.Designer.cs">
       <DependentUpon>Inputfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SplashScreenfrm.cs">
+    <Compile Include="src\SplashScreenfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SplashScreenfrm.Designer.cs">
+    <Compile Include="src\SplashScreenfrm.Designer.cs">
       <DependentUpon>SplashScreenfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Toolsfrm.cs">
+    <Compile Include="src\Toolsfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Toolsfrm.Designer.cs">
+    <Compile Include="src\Toolsfrm.Designer.cs">
       <DependentUpon>Toolsfrm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Allowedfrm.resx">
+    <EmbeddedResource Include="src\Allowedfrm.resx">
       <DependentUpon>Allowedfrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Blockedfrm.resx">
+    <EmbeddedResource Include="src\Blockedfrm.resx">
       <DependentUpon>Blockedfrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DbleInputfrm.resx">
+    <EmbeddedResource Include="src\DbleInputfrm.resx">
       <DependentUpon>DbleInputfrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mainfrm.resx">
+    <EmbeddedResource Include="src\Mainfrm.resx">
       <DependentUpon>Mainfrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Helpfrm.resx">
+    <EmbeddedResource Include="src\Helpfrm.resx">
       <DependentUpon>Helpfrm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Inputfrm.resx">
+    <EmbeddedResource Include="src\Inputfrm.resx">
       <DependentUpon>Inputfrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -164,10 +164,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SplashScreenfrm.resx">
+    <EmbeddedResource Include="src\SplashScreenfrm.resx">
       <DependentUpon>SplashScreenfrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Toolsfrm.resx">
+    <EmbeddedResource Include="src\Toolsfrm.resx">
       <DependentUpon>Toolsfrm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
