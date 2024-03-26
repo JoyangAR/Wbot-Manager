@@ -82,6 +82,11 @@ namespace WbotMgr
                     {
                         sectionItems.Add(section.sectionname);
                     }
+                    // Replace null webhook by "" to avoid wbot error
+                    if (section.webhook == null)
+                    {
+                        section.webhook = "";
+                    }
                 }
 
                 // Add "...." at the end of sections as show all sections button only if there are groups
@@ -268,6 +273,7 @@ namespace WbotMgr
 
                 TxtSecconds.Text = selectedSection.afterseconds.ToString();
                 ChkBoxCaption.Checked = selectedSection.responseAsCaption;
+                TxtWebhook.Text = selectedSection.webhook;
             }
             else
             {
@@ -280,6 +286,7 @@ namespace WbotMgr
                 ChkBoxCaption.Checked = false;
                 AttachedFilesListBox.Items.Clear();
                 TxtSecconds.Text = "";
+                TxtWebhook.Text = "";
             }
         }
 
@@ -322,6 +329,7 @@ namespace WbotMgr
                     selectedSection.exact = new List<string>(ExactListBox.Items?.Cast<string>() ?? Enumerable.Empty<string>());
                     selectedSection.response = TxtReply.Text;
                     selectedSection.file = new List<string>(AttachedFilesListBox.Items?.Cast<string>() ?? Enumerable.Empty<string>());
+                    selectedSection.webhook = TxtWebhook.Text;
                     selectedSection.responseAsCaption = ChkBoxCaption.Checked;
 
                     // Update the "afterSeconds" property in the section with the value from TxtSeconds

@@ -66,6 +66,8 @@ namespace WbotMgr
             this.NameListBox = new System.Windows.Forms.ListBox();
             this.ExactRemove = new System.Windows.Forms.Button();
             this.BtnHints = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.TxtWebhook = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,15 +81,15 @@ namespace WbotMgr
             // ExactListBox
             // 
             this.ExactListBox.FormattingEnabled = true;
-            this.ExactListBox.Location = new System.Drawing.Point(202, 108);
+            this.ExactListBox.Location = new System.Drawing.Point(202, 85);
             this.ExactListBox.Name = "ExactListBox";
-            this.ExactListBox.Size = new System.Drawing.Size(85, 329);
+            this.ExactListBox.Size = new System.Drawing.Size(85, 355);
             this.ExactListBox.TabIndex = 2;
             // 
             // ExactAdd
             // 
             this.ExactAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExactAdd.Location = new System.Drawing.Point(293, 108);
+            this.ExactAdd.Location = new System.Drawing.Point(293, 85);
             this.ExactAdd.Name = "ExactAdd";
             this.ExactAdd.Size = new System.Drawing.Size(29, 25);
             this.ExactAdd.TabIndex = 3;
@@ -98,15 +100,15 @@ namespace WbotMgr
             // ContainsListBox
             // 
             this.ContainsListBox.FormattingEnabled = true;
-            this.ContainsListBox.Location = new System.Drawing.Point(355, 108);
+            this.ContainsListBox.Location = new System.Drawing.Point(355, 85);
             this.ContainsListBox.Name = "ContainsListBox";
-            this.ContainsListBox.Size = new System.Drawing.Size(85, 329);
+            this.ContainsListBox.Size = new System.Drawing.Size(85, 355);
             this.ContainsListBox.TabIndex = 5;
             // 
             // ContainsRemove
             // 
             this.ContainsRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ContainsRemove.Location = new System.Drawing.Point(446, 139);
+            this.ContainsRemove.Location = new System.Drawing.Point(446, 116);
             this.ContainsRemove.Name = "ContainsRemove";
             this.ContainsRemove.Size = new System.Drawing.Size(29, 25);
             this.ContainsRemove.TabIndex = 7;
@@ -117,7 +119,7 @@ namespace WbotMgr
             // ContainsAdd
             // 
             this.ContainsAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ContainsAdd.Location = new System.Drawing.Point(446, 108);
+            this.ContainsAdd.Location = new System.Drawing.Point(446, 85);
             this.ContainsAdd.Name = "ContainsAdd";
             this.ContainsAdd.Size = new System.Drawing.Size(29, 25);
             this.ContainsAdd.TabIndex = 6;
@@ -128,7 +130,7 @@ namespace WbotMgr
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(490, 92);
+            this.label1.Location = new System.Drawing.Point(490, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 9;
@@ -137,7 +139,7 @@ namespace WbotMgr
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(352, 92);
+            this.label2.Location = new System.Drawing.Point(352, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 10;
@@ -146,7 +148,7 @@ namespace WbotMgr
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(199, 92);
+            this.label3.Location = new System.Drawing.Point(199, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 11;
@@ -174,7 +176,7 @@ namespace WbotMgr
             // ChkBoxCaption
             // 
             this.ChkBoxCaption.AutoSize = true;
-            this.ChkBoxCaption.Location = new System.Drawing.Point(493, 351);
+            this.ChkBoxCaption.Location = new System.Drawing.Point(493, 318);
             this.ChkBoxCaption.Name = "ChkBoxCaption";
             this.ChkBoxCaption.Size = new System.Drawing.Size(127, 17);
             this.ChkBoxCaption.TabIndex = 14;
@@ -185,7 +187,7 @@ namespace WbotMgr
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(490, 328);
+            this.label5.Location = new System.Drawing.Point(490, 295);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 13);
             this.label5.TabIndex = 15;
@@ -193,7 +195,7 @@ namespace WbotMgr
             // 
             // TxtSecconds
             // 
-            this.TxtSecconds.Location = new System.Drawing.Point(569, 325);
+            this.TxtSecconds.Location = new System.Drawing.Point(569, 292);
             this.TxtSecconds.Name = "TxtSecconds";
             this.TxtSecconds.Size = new System.Drawing.Size(51, 20);
             this.TxtSecconds.TabIndex = 16;
@@ -201,7 +203,7 @@ namespace WbotMgr
             // BtnAttach
             // 
             this.BtnAttach.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAttach.Location = new System.Drawing.Point(626, 354);
+            this.BtnAttach.Location = new System.Drawing.Point(626, 321);
             this.BtnAttach.Name = "BtnAttach";
             this.BtnAttach.Size = new System.Drawing.Size(27, 25);
             this.BtnAttach.TabIndex = 17;
@@ -292,7 +294,7 @@ namespace WbotMgr
             // AttachedFilesListBox
             // 
             this.AttachedFilesListBox.FormattingEnabled = true;
-            this.AttachedFilesListBox.Location = new System.Drawing.Point(659, 354);
+            this.AttachedFilesListBox.Location = new System.Drawing.Point(659, 321);
             this.AttachedFilesListBox.Name = "AttachedFilesListBox";
             this.AttachedFilesListBox.Size = new System.Drawing.Size(171, 82);
             this.AttachedFilesListBox.TabIndex = 23;
@@ -300,7 +302,7 @@ namespace WbotMgr
             // BtnDettach
             // 
             this.BtnDettach.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDettach.Location = new System.Drawing.Point(626, 385);
+            this.BtnDettach.Location = new System.Drawing.Point(626, 352);
             this.BtnDettach.Name = "BtnDettach";
             this.BtnDettach.Size = new System.Drawing.Size(27, 25);
             this.BtnDettach.TabIndex = 24;
@@ -311,7 +313,7 @@ namespace WbotMgr
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(656, 328);
+            this.label6.Location = new System.Drawing.Point(656, 295);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(74, 13);
             this.label6.TabIndex = 25;
@@ -319,9 +321,9 @@ namespace WbotMgr
             // 
             // TxtReply
             // 
-            this.TxtReply.Location = new System.Drawing.Point(493, 108);
+            this.TxtReply.Location = new System.Drawing.Point(493, 44);
             this.TxtReply.Name = "TxtReply";
-            this.TxtReply.Size = new System.Drawing.Size(392, 207);
+            this.TxtReply.Size = new System.Drawing.Size(392, 238);
             this.TxtReply.TabIndex = 26;
             this.TxtReply.Text = "";
             // 
@@ -378,7 +380,7 @@ namespace WbotMgr
             // ExactRemove
             // 
             this.ExactRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExactRemove.Location = new System.Drawing.Point(293, 139);
+            this.ExactRemove.Location = new System.Drawing.Point(293, 116);
             this.ExactRemove.Name = "ExactRemove";
             this.ExactRemove.Size = new System.Drawing.Size(29, 25);
             this.ExactRemove.TabIndex = 4;
@@ -388,7 +390,7 @@ namespace WbotMgr
             // 
             // BtnHints
             // 
-            this.BtnHints.Location = new System.Drawing.Point(859, 80);
+            this.BtnHints.Location = new System.Drawing.Point(859, 288);
             this.BtnHints.Name = "BtnHints";
             this.BtnHints.Size = new System.Drawing.Size(25, 25);
             this.BtnHints.TabIndex = 33;
@@ -396,11 +398,29 @@ namespace WbotMgr
             this.BtnHints.UseVisualStyleBackColor = true;
             this.BtnHints.Click += new System.EventHandler(this.BtnHints_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(490, 412);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(57, 13);
+            this.label8.TabIndex = 34;
+            this.label8.Text = "Webhook:";
+            // 
+            // TxtWebhook
+            // 
+            this.TxtWebhook.Location = new System.Drawing.Point(553, 409);
+            this.TxtWebhook.Name = "TxtWebhook";
+            this.TxtWebhook.Size = new System.Drawing.Size(277, 20);
+            this.TxtWebhook.TabIndex = 35;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(896, 450);
+            this.Controls.Add(this.TxtWebhook);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.BtnHints);
             this.Controls.Add(this.NameListBox);
             this.Controls.Add(this.BtnMoveDown);
@@ -481,6 +501,8 @@ namespace WbotMgr
         private System.Windows.Forms.Button ExactRemove;
         private ToolStripMenuItem allowedToolStripMenuItem;
         private Button BtnHints;
+        private Label label8;
+        private TextBox TxtWebhook;
     }
 }
 
