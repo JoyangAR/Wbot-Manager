@@ -68,6 +68,8 @@ namespace WbotMgr
             this.BtnHints = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.TxtWebhook = new System.Windows.Forms.TextBox();
+            this.TxtSearch = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -214,7 +216,7 @@ namespace WbotMgr
             // NameRemove
             // 
             this.NameRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameRemove.Location = new System.Drawing.Point(158, 69);
+            this.NameRemove.Location = new System.Drawing.Point(158, 121);
             this.NameRemove.Name = "NameRemove";
             this.NameRemove.Size = new System.Drawing.Size(29, 25);
             this.NameRemove.TabIndex = 20;
@@ -225,7 +227,7 @@ namespace WbotMgr
             // NameAdd
             // 
             this.NameAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameAdd.Location = new System.Drawing.Point(158, 38);
+            this.NameAdd.Location = new System.Drawing.Point(158, 90);
             this.NameAdd.Name = "NameAdd";
             this.NameAdd.Size = new System.Drawing.Size(29, 25);
             this.NameAdd.TabIndex = 19;
@@ -348,7 +350,7 @@ namespace WbotMgr
             // 
             this.BtnMoveDown.Enabled = false;
             this.BtnMoveDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnMoveDown.Location = new System.Drawing.Point(158, 149);
+            this.BtnMoveDown.Location = new System.Drawing.Point(158, 201);
             this.BtnMoveDown.Name = "BtnMoveDown";
             this.BtnMoveDown.Size = new System.Drawing.Size(29, 25);
             this.BtnMoveDown.TabIndex = 31;
@@ -360,7 +362,7 @@ namespace WbotMgr
             // 
             this.BtnMoveUp.Enabled = false;
             this.BtnMoveUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnMoveUp.Location = new System.Drawing.Point(158, 118);
+            this.BtnMoveUp.Location = new System.Drawing.Point(158, 170);
             this.BtnMoveUp.Name = "BtnMoveUp";
             this.BtnMoveUp.Size = new System.Drawing.Size(29, 25);
             this.BtnMoveUp.TabIndex = 30;
@@ -371,9 +373,9 @@ namespace WbotMgr
             // NameListBox
             // 
             this.NameListBox.FormattingEnabled = true;
-            this.NameListBox.Location = new System.Drawing.Point(12, 38);
+            this.NameListBox.Location = new System.Drawing.Point(12, 72);
             this.NameListBox.Name = "NameListBox";
-            this.NameListBox.Size = new System.Drawing.Size(140, 407);
+            this.NameListBox.Size = new System.Drawing.Size(140, 368);
             this.NameListBox.TabIndex = 32;
             this.NameListBox.SelectedIndexChanged += new System.EventHandler(this.NameListBox_SelectedIndexChanged);
             // 
@@ -414,11 +416,30 @@ namespace WbotMgr
             this.TxtWebhook.Size = new System.Drawing.Size(277, 20);
             this.TxtWebhook.TabIndex = 35;
             // 
+            // TxtSearch
+            // 
+            this.TxtSearch.Location = new System.Drawing.Point(12, 44);
+            this.TxtSearch.Name = "TxtSearch";
+            this.TxtSearch.Size = new System.Drawing.Size(140, 20);
+            this.TxtSearch.TabIndex = 36;
+            this.TxtSearch.TextChanged += new System.EventHandler(this.TxtSearch_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 28);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(44, 13);
+            this.label9.TabIndex = 37;
+            this.label9.Text = "Search:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(896, 450);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.TxtSearch);
             this.Controls.Add(this.TxtWebhook);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.BtnHints);
@@ -503,6 +524,8 @@ namespace WbotMgr
         private Button BtnHints;
         private Label label8;
         private TextBox TxtWebhook;
+        private TextBox TxtSearch;
+        private Label label9;
     }
 }
 

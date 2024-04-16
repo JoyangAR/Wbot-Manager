@@ -910,6 +910,23 @@ namespace WbotMgr
     MessageBoxButtons.OK,
     MessageBoxIcon.Information);
         }
+
+        private void TxtSearch_TextChanged(object sender, EventArgs e)
+        {
+            // Get the current text from the text box
+            string searchText = TxtSearch.Text.ToLower();
+
+            // Filter the list based on the entered text
+            var filteredItems = sectionItems.Where(item => item.ToLower().Contains(searchText)).ToList();
+
+            // Update the ListBox with the filtered items
+            NameListBox.Items.Clear();  // Clear current items
+            foreach (var item in filteredItems)
+            {
+                NameListBox.Items.Add(item);  // Add each filtered item to the ListBox
+            }
+        }
+
     }
 
     public class AppConfig
