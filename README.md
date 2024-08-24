@@ -4,17 +4,21 @@
 
 Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool for wrestling with the `bot.json` file of [WBOT](https://github.com/vasani-arpit/WBOT) by the coding sorcery of [vasani-arpit](https://github.com/vasani-arpit).
 
-![Main Example](https://github.com/JoyangAR/Wbot-Manager/assets/43119910/e1ce5c19-2911-41fb-b1f7-2d891cbdeda7)
+![Main Example](https://github.com/user-attachments/assets/c652107e-a9d7-4765-bdbd-bab518cc7368)
+
 *Explore the main interface, offering an intuitive way to handle your `bot.json` settings. Effortlessly navigate and modify configurations to tailor WBOT according to your preferences.*
 
-![Blocked/Allowed Example](https://github.com/JoyangAR/Wbot-Manager/assets/43119910/2a94a62a-eeed-4c64-9e9f-02eb3ca04c2d)
+![Blocked/Allowed Example](https://github.com/user-attachments/assets/a595969c-cb8d-48b1-bfa8-13440ef2cc1b)
+
 *Easily manage blocked contacts and streamline your interactions with this dedicated feature. Wbot-Manager simplifies the process of handling blocked/allowed contacts, providing a seamless user experience.*
 
-![Tools Section](https://github.com/JoyangAR/Wbot-Manager/assets/43119910/2d348628-4390-4cb6-86d4-86c44dc6b538)
+![Tools Example](https://github.com/user-attachments/assets/af4e13c2-689d-4b35-ae30-43c7f6dd0343)
 
 *Uncover additional tools within the application, enhancing your ability to fine-tune WBOT settings. These tools are designed to empower users, making Wbot-Manager an all-encompassing solution for WBOT enthusiasts.*
 
-> Note: Apologies for the quality of the gifs.
+![Backup-Manager Example](https://github.com/user-attachments/assets/8f77700a-aa89-4219-a5bb-6afe9c7f9f44)
+
+*Easily manage your bot.json backups. Create, organize, and restore backups effortlessly to keep your settings safe and accessible.*
 
 ## Key Features
 
@@ -38,11 +42,9 @@ Contributions are more than welcome! Feel free to submit pull requests, report i
 
 ## Donations
 
-If you find Wbot-Manager somewhat useful (or not), and your heart (and wallet) is feeling generous, consider contributing to the cause. We believe in giving back, so 10% of all donations will go directly to the coding maestro [vasani-arpit](https://github.com/vasani-arpit).
+**If you'd like to show your support, feel free to donate! [Donate here](https://www.paypal.me/JoyangAR)**
 
-**Donate now and let the coding magic continue! [Donate here](https://www.paypal.me/JoyangAR)**
-
-> *Or, if you're feeling rebellious, you can donate directly to him. Just saying.*
+> *Donations are appreciated but not necessary. You can also make my day by sending a photo of the tool in use!*
 
 ## Reach Out
 
