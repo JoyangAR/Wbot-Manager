@@ -14,7 +14,7 @@ Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool
 
 ![Tools Example](https://github.com/user-attachments/assets/af4e13c2-689d-4b35-ae30-43c7f6dd0343)
 
-*Uncover additional tools within the application, enhancing your ability to fine-tune WBOT settings. These tools are designed to empower users, making Wbot-Manager an all-encompassing solution for WBOT enthusiasts.*
+*Manage the general settings of your bot.json file with ease. The Tools section in Wbot-Manager is a comprehensive solution for handling your WBOT settings.*
 
 ![Backup-Manager Example](https://github.com/user-attachments/assets/8f77700a-aa89-4219-a5bb-6afe9c7f9f44)
 
@@ -25,6 +25,7 @@ Welcome to Wbot-Manager – the not-so-fancy, but totally gets-the-job-done tool
 - **Structured Response Sections:** Keep your responses organized with named sections and groups. It's like giving your replies a neat filing system.
 - **Named Contact Lists:** Easily manage blocked or allowed contacts by assigning names to them. No more guessing games!
 - **Effortless Reordering:** Move things around smoothly. Rearrange response sections, contacts, and groups with a simple up and down movement.
+- **Backup Managing** Create, delete and restore backups with a clic of the mouse.
 
 ## Getting Started
 
