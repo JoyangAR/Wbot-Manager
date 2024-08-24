@@ -51,4 +51,4 @@ Contributions are more than welcome! Feel free to submit pull requests, report i
 
 Questions, suggestions, or just want to chat? Catch me on [Telegram](http://t.me/JoyangAR). I promise I won't overwhelm you with tech jargon because, honestly, I don't know any either!
 
-Wbot-Manager – Because configuring the `bot.json` of WBOT should be as painless as possible. Or at least, we try!
+Wbot-Manager – Making bot.json configuration for WBOT easy and accessible for everyone.
