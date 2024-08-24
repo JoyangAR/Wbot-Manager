@@ -7,29 +7,14 @@ namespace WbotMgr
 {
     public partial class Backupsfrm : Form
     {
-        public Backupsfrm()
-        {
-            InitializeComponent();
-        }
-
         // local form strings from MainForm
         public string tempJsonBaseDirectory;
 
         public string tempJsonFilePath;
 
-        private void BtnCreateBackup_Click(object sender, EventArgs e)
+        public Backupsfrm()
         {
-            if (BackupsHandler.CreateBackup(tempJsonFilePath, tempJsonBaseDirectory))
-            {
-                MessageBox.Show("Backup created successfully");
-                // Refill Listbox
-                BackupsListBox.Items.Clear();
-                FillBackupsListBox();
-            }
-            else
-            {
-                MessageBox.Show("Error while creating backup");
-            }
+            InitializeComponent();
         }
 
         private void Backupsfrm_Load(object sender, EventArgs e)
@@ -50,37 +35,76 @@ namespace WbotMgr
             }
         }
 
-        private void BtnDeleteBackup_Click(object sender, EventArgs e)
+        private void BtnCreateBackup_Click(object sender, EventArgs e)
         {
-            string backupToDelete = Path.Combine(tempJsonBaseDirectory, BackupsListBox.SelectedItem.ToString());
-            if (BackupsHandler.DeleteBackup(backupToDelete))
+            if (BackupsHandler.CreateBackup(tempJsonFilePath, tempJsonBaseDirectory))
             {
-                // Remove from ListBox too
-                BackupsListBox.Items.Remove(BackupsListBox.SelectedItem.ToString());
+                MessageBox.Show("Backup created successfully");
                 // Refill Listbox
                 BackupsListBox.Items.Clear();
                 FillBackupsListBox();
             }
             else
             {
-                MessageBox.Show("Error while deleting backup");
+                MessageBox.Show("Error while creating backup");
+            }
+        }
+
+        private void BtnDeleteBackup_Click(object sender, EventArgs e)
+        {
+            if (BackupsListBox.SelectedIndex != -1)
+            {
+                string backupToDelete = Path.Combine(tempJsonBaseDirectory, BackupsListBox.SelectedItem.ToString());
+                if (BackupsHandler.DeleteBackup(backupToDelete))
+                {
+                    // Remove from ListBox too
+                    BackupsListBox.Items.Remove(BackupsListBox.SelectedItem.ToString());
+                    // Refill Listbox
+                    BackupsListBox.Items.Clear();
+                    FillBackupsListBox();
+                }
+                else
+                {
+                    MessageBox.Show("Error while deleting backup");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No file selected");
             }
         }
 
         private void BtnRestoreBackup_Click(object sender, EventArgs e)
         {
-            string backupToRestore = Path.Combine(tempJsonBaseDirectory, BackupsListBox.SelectedItem.ToString());
-            if (BackupsHandler.RestoreBackup(tempJsonFilePath, backupToRestore))
+            if (BackupsListBox.SelectedIndex != -1)
             {
-                // If restored close application
-                MessageBox.Show("Backup restored successfully. Will be aviable when Wbot Manager starts again.");
-                SplashScreenfrm SplashForm = Application.OpenForms.OfType<SplashScreenfrm>().FirstOrDefault();
-                SplashForm.Close();
+                string backupToRestore = Path.Combine(tempJsonBaseDirectory, BackupsListBox.SelectedItem.ToString());
+                if (BackupsHandler.RestoreBackup(tempJsonFilePath, backupToRestore))
+                {
+                    // If restored close application
+                    MessageBox.Show("Backup restored successfully. Will be aviable when Wbot Manager starts again.");
+                    SplashScreenfrm SplashForm = Application.OpenForms.OfType<SplashScreenfrm>().FirstOrDefault();
+                    SplashForm.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Error while restoring backup");
+                }
             }
             else
             {
-                MessageBox.Show("Error while restoring backup");
+                MessageBox.Show("No file selected");
             }
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BtnDeleteBackup_Click(this, EventArgs.Empty);
+        }
+
+        private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BtnRestoreBackup_Click(this, EventArgs.Empty);
         }
     }
 }

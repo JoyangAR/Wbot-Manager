@@ -30,6 +30,7 @@ namespace WbotMgr
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TxtNameEdit = new System.Windows.Forms.TextBox();
             this.ExactListBox = new System.Windows.Forms.ListBox();
@@ -72,7 +73,11 @@ namespace WbotMgr
             this.TxtWebhook = new System.Windows.Forms.TextBox();
             this.TxtSearch = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.ListboxesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuStrip.SuspendLayout();
+            this.ListboxesContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // TxtNameEdit
@@ -84,6 +89,7 @@ namespace WbotMgr
             // 
             // ExactListBox
             // 
+            this.ExactListBox.ContextMenuStrip = this.ListboxesContextMenu;
             this.ExactListBox.FormattingEnabled = true;
             this.ExactListBox.Location = new System.Drawing.Point(202, 85);
             this.ExactListBox.Name = "ExactListBox";
@@ -103,6 +109,7 @@ namespace WbotMgr
             // 
             // ContainsListBox
             // 
+            this.ContainsListBox.ContextMenuStrip = this.ListboxesContextMenu;
             this.ContainsListBox.FormattingEnabled = true;
             this.ContainsListBox.Location = new System.Drawing.Point(355, 85);
             this.ContainsListBox.Name = "ContainsListBox";
@@ -218,7 +225,7 @@ namespace WbotMgr
             // NameRemove
             // 
             this.NameRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameRemove.Location = new System.Drawing.Point(158, 121);
+            this.NameRemove.Location = new System.Drawing.Point(158, 103);
             this.NameRemove.Name = "NameRemove";
             this.NameRemove.Size = new System.Drawing.Size(29, 25);
             this.NameRemove.TabIndex = 20;
@@ -229,7 +236,7 @@ namespace WbotMgr
             // NameAdd
             // 
             this.NameAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameAdd.Location = new System.Drawing.Point(158, 90);
+            this.NameAdd.Location = new System.Drawing.Point(158, 72);
             this.NameAdd.Name = "NameAdd";
             this.NameAdd.Size = new System.Drawing.Size(29, 25);
             this.NameAdd.TabIndex = 19;
@@ -265,49 +272,49 @@ namespace WbotMgr
             // blockedToolStripMenuItem
             // 
             this.blockedToolStripMenuItem.Name = "blockedToolStripMenuItem";
-            this.blockedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blockedToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.blockedToolStripMenuItem.Text = "Blocked";
             this.blockedToolStripMenuItem.Click += new System.EventHandler(this.blockedToolStripMenuItem_Click);
             // 
             // allowedToolStripMenuItem
             // 
             this.allowedToolStripMenuItem.Name = "allowedToolStripMenuItem";
-            this.allowedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allowedToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.allowedToolStripMenuItem.Text = "Allowed";
             this.allowedToolStripMenuItem.Click += new System.EventHandler(this.allowedToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.toolsToolStripMenuItem.Text = "Tools";
             this.toolsToolStripMenuItem.Click += new System.EventHandler(this.toolsToolStripMenuItem_Click);
             // 
             // noMatchToolStripMenuItem
             // 
             this.noMatchToolStripMenuItem.Name = "noMatchToolStripMenuItem";
-            this.noMatchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.noMatchToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.noMatchToolStripMenuItem.Text = "No Match";
             this.noMatchToolStripMenuItem.Click += new System.EventHandler(this.noMatchToolStripMenuItem_Click);
             // 
             // createBackupToolStripMenuItem
             // 
             this.createBackupToolStripMenuItem.Name = "createBackupToolStripMenuItem";
-            this.createBackupToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.createBackupToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.createBackupToolStripMenuItem.Text = "Create Backup";
             this.createBackupToolStripMenuItem.Click += new System.EventHandler(this.createBackupToolStripMenuItem_Click);
             // 
             // manageBackupstoolStripMenuItem
             // 
             this.manageBackupstoolStripMenuItem.Name = "manageBackupstoolStripMenuItem";
-            this.manageBackupstoolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.manageBackupstoolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.manageBackupstoolStripMenuItem.Text = "Manage Backups";
             this.manageBackupstoolStripMenuItem.Click += new System.EventHandler(this.manageBackupstoolStripMenuItem_Click);
             // 
@@ -368,7 +375,7 @@ namespace WbotMgr
             // 
             this.BtnMoveDown.Enabled = false;
             this.BtnMoveDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnMoveDown.Location = new System.Drawing.Point(158, 201);
+            this.BtnMoveDown.Location = new System.Drawing.Point(158, 183);
             this.BtnMoveDown.Name = "BtnMoveDown";
             this.BtnMoveDown.Size = new System.Drawing.Size(29, 25);
             this.BtnMoveDown.TabIndex = 31;
@@ -380,7 +387,7 @@ namespace WbotMgr
             // 
             this.BtnMoveUp.Enabled = false;
             this.BtnMoveUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnMoveUp.Location = new System.Drawing.Point(158, 170);
+            this.BtnMoveUp.Location = new System.Drawing.Point(158, 152);
             this.BtnMoveUp.Name = "BtnMoveUp";
             this.BtnMoveUp.Size = new System.Drawing.Size(29, 25);
             this.BtnMoveUp.TabIndex = 30;
@@ -390,6 +397,7 @@ namespace WbotMgr
             // 
             // NameListBox
             // 
+            this.NameListBox.ContextMenuStrip = this.ListboxesContextMenu;
             this.NameListBox.FormattingEnabled = true;
             this.NameListBox.Location = new System.Drawing.Point(12, 72);
             this.NameListBox.Name = "NameListBox";
@@ -451,6 +459,28 @@ namespace WbotMgr
             this.label9.TabIndex = 37;
             this.label9.Text = "Search:";
             // 
+            // ListboxesContextMenu
+            // 
+            this.ListboxesContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem,
+            this.removeToolStripMenuItem});
+            this.ListboxesContextMenu.Name = "ListboxesContextMenu";
+            this.ListboxesContextMenu.Size = new System.Drawing.Size(118, 48);
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -491,7 +521,6 @@ namespace WbotMgr
             this.Controls.Add(this.MainMenuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.MainMenuStrip;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -499,6 +528,7 @@ namespace WbotMgr
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.MainMenuStrip.ResumeLayout(false);
             this.MainMenuStrip.PerformLayout();
+            this.ListboxesContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -546,6 +576,9 @@ namespace WbotMgr
         private Label label9;
         private ToolStripMenuItem createBackupToolStripMenuItem;
         private ToolStripMenuItem manageBackupstoolStripMenuItem;
+        private ContextMenuStrip ListboxesContextMenu;
+        private ToolStripMenuItem addToolStripMenuItem;
+        private ToolStripMenuItem removeToolStripMenuItem;
     }
 }
 

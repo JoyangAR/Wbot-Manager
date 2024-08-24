@@ -968,5 +968,47 @@ namespace WbotMgr
                 MessageBox.Show($"Error opening the backups form: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Obtains de source control for ListboxesContextMenu
+            Control originControl = ListboxesContextMenu.SourceControl;
+            // Call button by originate control
+            switch (originControl)
+            {
+                case ListBox listBox when listBox == NameListBox:
+                    NameAdd_Click(sender, EventArgs.Empty);
+                    break;
+
+                case ListBox listBox when listBox == ExactListBox:
+                    ExactAdd_Click(sender, EventArgs.Empty);
+                    break;
+
+                case ListBox listBox when listBox == ContainsListBox:
+                    ContainsAdd_Click(sender, EventArgs.Empty);
+                    break;
+            }
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Obtains de source control for ListboxesContextMenu
+            Control originControl = ListboxesContextMenu.SourceControl;
+            // Call button by originate control
+            switch (originControl)
+            {
+                case ListBox listBox when listBox == NameListBox:
+                    NameRemove_Click(sender, EventArgs.Empty);
+                    break;
+
+                case ListBox listBox when listBox == ExactListBox:
+                    ExactRemove_Click(sender, EventArgs.Empty);
+                    break;
+
+                case ListBox listBox when listBox == ContainsListBox:
+                    ContainsRemove_Click(sender, EventArgs.Empty);
+                    break;
+            }
+        }
     }
 }
