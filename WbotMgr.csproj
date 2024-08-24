@@ -91,6 +91,14 @@
     <Compile Include="src\Allowedfrm.Designer.cs">
       <DependentUpon>Allowedfrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\AssistingClasses.cs" />
+    <Compile Include="src\Backupsfrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Backupsfrm.Designer.cs">
+      <DependentUpon>Backupsfrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\BackupsHandler.cs" />
     <Compile Include="src\Blockedfrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +145,9 @@
     </Compile>
     <EmbeddedResource Include="src\Allowedfrm.resx">
       <DependentUpon>Allowedfrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Backupsfrm.resx">
+      <DependentUpon>Backupsfrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\Blockedfrm.resx">
       <DependentUpon>Blockedfrm.cs</DependentUpon>

@@ -48,6 +48,8 @@ namespace WbotMgr
         {
             // Create an instance of the MainForm, show it, and hide the SplashScreen
             MainForm mainForm = new MainForm();
+            MainForm.jsonBaseDirectory = BaseDirectorySP; // Assign the jsonBaseDirectory string
+            MainForm.jsonFilePath = jsonFilePathSP; // Assign the jsonFilePath string
             mainForm.Show();
             this.Hide();
             mainForm.Focus();

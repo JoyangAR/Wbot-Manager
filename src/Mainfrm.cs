@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using AssistingClasses;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,8 +12,8 @@ namespace WbotMgr
 {
     public partial class MainForm : Form
     {
-        private string jsonFilePath = SplashScreenfrm.jsonFilePathSP;
-        private string jsonBaseDirectory = SplashScreenfrm.BaseDirectorySP;
+        public static string jsonFilePath = SplashScreenfrm.jsonFilePathSP;
+        public static string jsonBaseDirectory = SplashScreenfrm.BaseDirectorySP;
         public BotConfiguration botConfig;
         private List<string> sectionItems = new List<string>();
         private List<string> groupItems = new List<string>();
@@ -62,7 +62,7 @@ namespace WbotMgr
                         port = 8080
                     };
                 }
-                
+
                 bool hasGroups = botConfig.bot.Any(section => section.sectiongroup != null);
 
                 // Check each section in "bot" and add "sectionname" if it does not exist
@@ -927,103 +927,45 @@ namespace WbotMgr
             }
         }
 
-    }
-
-    public class AppConfig
-    {
-        public bool headless { get; set; }
-        public bool isGroupReply { get; set; }
-        public string webhook { get; set; }
-        public bool downloadMedia { get; set; }
-        public bool replyUnreadMsg { get; set; }
-        public string CustomInjectionFolder { get; set; }
-        public bool quoteMessageInReply { get; set; }
-        public ServerConfig server { get; set; }
-    }
-
-    public class ServerConfig
-    {
-        public int port { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-    }
-
-    public class SmartReply
-    {
-        public List<string> suggestions { get; set; }
-        public bool clicktosend { get; set; }
-    }
-
-    public class BotConfiguration
-    {
-        public AppConfig appconfig { get; set; }
-        public List<BotSection> bot { get; set; }
-        public List<string> blocked { get; set; }
-        public List<string> allowed { get; set; }
-        public string noMatch { get; set; }
-        public SmartReply smartreply { get; set; }
-    }
-
-    public class BotSection
-    {
-        public string sectionname { get; set; }
-        public string sectiongroup { get; set; }
-        public List<string> contains { get; set; }
-        public List<string> exact { get; set; }
-        public string response { get; set; }
-
-        [JsonConverter(typeof(FileConverter))]
-        public List<string> file { get; set; }
-
-        public int afterseconds { get; set; }
-        public string webhook { get; set; }
-        public bool responseAsCaption { get; set; }
-    }
-
-    public class FileConverter : JsonConverter
-    {
-        public override bool CanConvert(Type objectType)
+        private void createBackupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            return objectType == typeof(List<string>);
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            JToken token = JToken.Load(reader);
-
-            if (token.Type == JTokenType.String)
+            if (BackupsHandler.CreateBackup(jsonFilePath, jsonBaseDirectory))
             {
-                return new List<string> { token.Value<string>() };
-            }
-            else if (token.Type == JTokenType.Array)
-            {
-                return token.ToObject<List<string>>();
-            }
-
-            return null;
-        }
-
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            List<string> files = value as List<string>;
-
-            if (files != null && files.Count > 0)
-            {
-                // If the list contains more than one element or the first element is not empty, serialize the list normally.
-                if (files.Count > 1 || !string.IsNullOrEmpty(files[0]))
-                {
-                    serializer.Serialize(writer, files);
-                }
-                else
-                {
-                    // If the list has only one element that is empty, serialize only that element without brackets.
-                    serializer.Serialize(writer, files[0]);
-                }
+                // Show Message if backup created
+                MessageBox.Show("Backup created successfully");
             }
             else
             {
-                // If the list is null or empty, serialize an empty list.
-                serializer.Serialize(writer, new List<string>());
+                // Show Message if backup could not be created
+                MessageBox.Show("Error while creating backup");
+            }
+        }
+
+        private void manageBackupstoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Check if an existing instance of the Blockedfrm form is already open
+                Backupsfrm backupsForm = Application.OpenForms.OfType<Backupsfrm>().FirstOrDefault();
+
+                if (backupsForm == null)
+                {
+                    // If there is no existing instance, create a new one
+                    backupsForm = new Backupsfrm();
+                    backupsForm.tempJsonBaseDirectory = jsonBaseDirectory; // Assign the jsonBaseDirectory string
+                    backupsForm.tempJsonFilePath = jsonFilePath; // Assign the jsonFilePath string
+                    backupsForm.Show(); // Show the backupsForm
+                }
+                else
+                {
+                    // If an instance already exists, bring it to the front
+                    backupsForm.BringToFront();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception, for example, show an error message
+                MessageBox.Show($"Error opening the backups form: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
