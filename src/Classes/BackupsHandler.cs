@@ -1,12 +1,11 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Forms;
 
 namespace WbotMgr
 {
     internal class BackupsHandler
     {
-        public static bool CreateBackup(string filePath, string folderPath)
+        public static bool CreateBackup(string filePath, string folderPath, out string errorMsg)
         {
             // Check if the original file exists
             if (File.Exists(filePath))
@@ -28,42 +27,46 @@ namespace WbotMgr
                 {
                     // Copy the original file to create a backup
                     File.Copy(filePath, backupFilePath);
+                    errorMsg = null;
                     return true;
                 }
-                catch
+                catch (Exception ex)
                 {
+                    errorMsg = ex.Message;
                     return false;
                 }
             }
             else
             {
-                MessageBox.Show($"The file {filePath} does not exist in the specified path.");
+                errorMsg = $"The file {filePath} does not exist in the specified path.";
                 return false;
             }
         }
 
-        public static bool DeleteBackup(string filePath)
+        public static bool DeleteBackup(string filePath, out string errorMsg)
         {
             if (File.Exists(filePath))
             {
                 try
                 {
                     File.Delete(filePath);
+                    errorMsg = null;
                     return true;
                 }
-                catch
+                catch (Exception ex)
                 {
+                    errorMsg = ex.Message;
                     return false;
                 }
             }
             else
             {
-                MessageBox.Show($"The file {filePath} does not exist in the specified path.");
+                errorMsg = $"The file {filePath} does not exist in the specified path.";
                 return false;
             }
         }
 
-        public static bool RestoreBackup(string oldFilePath, string newFilePath)
+        public static bool RestoreBackup(string oldFilePath, string newFilePath, out string errorMsg)
         {
             try
             {
@@ -75,10 +78,12 @@ namespace WbotMgr
 
                 // Copy the backup to the original file path
                 File.Copy(newFilePath, oldFilePath);
+                errorMsg = null;
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                errorMsg = ex.Message;
                 return false;
             }
         }

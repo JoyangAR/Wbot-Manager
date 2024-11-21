@@ -39,6 +39,8 @@
             this.ChkHeadless = new System.Windows.Forms.CheckBox();
             this.BtnInjection = new System.Windows.Forms.Button();
             this.BtnWebhook = new System.Windows.Forms.Button();
+            this.BtnBackups = new System.Windows.Forms.Button();
+            this.BtnProgramming = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnBlockedTools
@@ -54,7 +56,7 @@
             // ChkGroupReply
             // 
             this.ChkGroupReply.AutoSize = true;
-            this.ChkGroupReply.Location = new System.Drawing.Point(12, 108);
+            this.ChkGroupReply.Location = new System.Drawing.Point(10, 138);
             this.ChkGroupReply.Name = "ChkGroupReply";
             this.ChkGroupReply.Size = new System.Drawing.Size(85, 17);
             this.ChkGroupReply.TabIndex = 1;
@@ -64,7 +66,7 @@
             // ChkReplyUnread
             // 
             this.ChkReplyUnread.AutoSize = true;
-            this.ChkReplyUnread.Location = new System.Drawing.Point(12, 131);
+            this.ChkReplyUnread.Location = new System.Drawing.Point(10, 161);
             this.ChkReplyUnread.Name = "ChkReplyUnread";
             this.ChkReplyUnread.Size = new System.Drawing.Size(137, 17);
             this.ChkReplyUnread.TabIndex = 2;
@@ -74,7 +76,7 @@
             // ChkDownload
             // 
             this.ChkDownload.AutoSize = true;
-            this.ChkDownload.Location = new System.Drawing.Point(12, 154);
+            this.ChkDownload.Location = new System.Drawing.Point(10, 184);
             this.ChkDownload.Name = "ChkDownload";
             this.ChkDownload.Size = new System.Drawing.Size(106, 17);
             this.ChkDownload.TabIndex = 3;
@@ -83,7 +85,7 @@
             // 
             // BtnApplyTools
             // 
-            this.BtnApplyTools.Location = new System.Drawing.Point(48, 223);
+            this.BtnApplyTools.Location = new System.Drawing.Point(46, 253);
             this.BtnApplyTools.Name = "BtnApplyTools";
             this.BtnApplyTools.Size = new System.Drawing.Size(70, 26);
             this.BtnApplyTools.TabIndex = 4;
@@ -94,7 +96,7 @@
             // ChkQuote
             // 
             this.ChkQuote.AutoSize = true;
-            this.ChkQuote.Location = new System.Drawing.Point(12, 177);
+            this.ChkQuote.Location = new System.Drawing.Point(10, 207);
             this.ChkQuote.Name = "ChkQuote";
             this.ChkQuote.Size = new System.Drawing.Size(142, 17);
             this.ChkQuote.TabIndex = 5;
@@ -124,7 +126,7 @@
             // ChkHeadless
             // 
             this.ChkHeadless.AutoSize = true;
-            this.ChkHeadless.Location = new System.Drawing.Point(12, 200);
+            this.ChkHeadless.Location = new System.Drawing.Point(10, 230);
             this.ChkHeadless.Name = "ChkHeadless";
             this.ChkHeadless.Size = new System.Drawing.Size(70, 17);
             this.ChkHeadless.TabIndex = 8;
@@ -151,11 +153,31 @@
             this.BtnWebhook.UseVisualStyleBackColor = true;
             this.BtnWebhook.Click += new System.EventHandler(this.BtnWebhook_Click);
             // 
+            // BtnBackups
+            // 
+            this.BtnBackups.Location = new System.Drawing.Point(92, 76);
+            this.BtnBackups.Name = "BtnBackups";
+            this.BtnBackups.Size = new System.Drawing.Size(70, 26);
+            this.BtnBackups.TabIndex = 11;
+            this.BtnBackups.Text = "Backups";
+            this.BtnBackups.UseVisualStyleBackColor = true;
+            // 
+            // BtnProgramming
+            // 
+            this.BtnProgramming.Location = new System.Drawing.Point(10, 108);
+            this.BtnProgramming.Name = "BtnProgramming";
+            this.BtnProgramming.Size = new System.Drawing.Size(152, 26);
+            this.BtnProgramming.TabIndex = 12;
+            this.BtnProgramming.Text = "Programming";
+            this.BtnProgramming.UseVisualStyleBackColor = true;
+            // 
             // Toolsfrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(174, 261);
+            this.ClientSize = new System.Drawing.Size(174, 291);
+            this.Controls.Add(this.BtnProgramming);
+            this.Controls.Add(this.BtnBackups);
             this.Controls.Add(this.BtnWebhook);
             this.Controls.Add(this.BtnInjection);
             this.Controls.Add(this.ChkHeadless);
@@ -169,7 +191,7 @@
             this.Controls.Add(this.BtnBlockedTools);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(190, 300);
+            this.MaximumSize = new System.Drawing.Size(190, 330);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(190, 220);
             this.Name = "Toolsfrm";
@@ -195,5 +217,7 @@
         private System.Windows.Forms.CheckBox ChkHeadless;
         private System.Windows.Forms.Button BtnInjection;
         private System.Windows.Forms.Button BtnWebhook;
+        private System.Windows.Forms.Button BtnBackups;
+        private System.Windows.Forms.Button BtnProgramming;
     }
 }

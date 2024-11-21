@@ -85,84 +85,93 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\Allowedfrm.cs">
+    <Compile Include="src\Classes\INIHandler.cs" />
+    <Compile Include="src\Forms\Allowedfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\Allowedfrm.Designer.cs">
+    <Compile Include="src\Forms\Allowedfrm.Designer.cs">
       <DependentUpon>Allowedfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\AssistingClasses.cs" />
-    <Compile Include="src\Backupsfrm.cs">
+    <Compile Include="src\Classes\AssistingClasses.cs" />
+    <Compile Include="src\Forms\Backupsfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\Backupsfrm.Designer.cs">
+    <Compile Include="src\Forms\Backupsfrm.Designer.cs">
       <DependentUpon>Backupsfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\BackupsHandler.cs" />
-    <Compile Include="src\Blockedfrm.cs">
+    <Compile Include="src\Classes\ProgrammingHandler.cs" />
+    <Compile Include="src\Classes\BackupsHandler.cs" />
+    <Compile Include="src\Forms\Blockedfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\Blockedfrm.Designer.cs">
+    <Compile Include="src\Forms\Blockedfrm.Designer.cs">
       <DependentUpon>Blockedfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\DbleInputfrm.cs">
+    <Compile Include="src\Forms\DbleInputfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\DbleInputfrm.Designer.cs">
+    <Compile Include="src\Forms\DbleInputfrm.Designer.cs">
       <DependentUpon>DbleInputfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\Mainfrm.cs">
+    <Compile Include="src\Forms\Mainfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\Mainfrm.Designer.cs">
+    <Compile Include="src\Forms\Mainfrm.Designer.cs">
       <DependentUpon>Mainfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\Helpfrm.cs">
+    <Compile Include="src\Forms\Helpfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\Helpfrm.Designer.cs">
+    <Compile Include="src\Forms\Helpfrm.Designer.cs">
       <DependentUpon>Helpfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\Inputfrm.cs">
+    <Compile Include="src\Forms\Inputfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\Inputfrm.Designer.cs">
+    <Compile Include="src\Forms\Inputfrm.Designer.cs">
       <DependentUpon>Inputfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\SplashScreenfrm.cs">
+    <Compile Include="src\Forms\Programmingfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\SplashScreenfrm.Designer.cs">
+    <Compile Include="src\Forms\Programmingfrm.Designer.cs">
+      <DependentUpon>Programmingfrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Classes\Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Forms\SplashScreenfrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\Forms\SplashScreenfrm.Designer.cs">
       <DependentUpon>SplashScreenfrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\Toolsfrm.cs">
+    <Compile Include="src\Forms\Toolsfrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\Toolsfrm.Designer.cs">
+    <Compile Include="src\Forms\Toolsfrm.Designer.cs">
       <DependentUpon>Toolsfrm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="src\Allowedfrm.resx">
+    <EmbeddedResource Include="src\Forms\Allowedfrm.resx">
       <DependentUpon>Allowedfrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Backupsfrm.resx">
+    <EmbeddedResource Include="src\Forms\Backupsfrm.resx">
       <DependentUpon>Backupsfrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Blockedfrm.resx">
+    <EmbeddedResource Include="src\Forms\Blockedfrm.resx">
       <DependentUpon>Blockedfrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\DbleInputfrm.resx">
+    <EmbeddedResource Include="src\Forms\DbleInputfrm.resx">
       <DependentUpon>DbleInputfrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Mainfrm.resx">
+    <EmbeddedResource Include="src\Forms\Mainfrm.resx">
       <DependentUpon>Mainfrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Helpfrm.resx">
+    <EmbeddedResource Include="src\Forms\Helpfrm.resx">
       <DependentUpon>Helpfrm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Inputfrm.resx">
+    <EmbeddedResource Include="src\Forms\Inputfrm.resx">
       <DependentUpon>Inputfrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -175,10 +184,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="src\SplashScreenfrm.resx">
+    <EmbeddedResource Include="src\Forms\Programmingfrm.resx">
+      <DependentUpon>Programmingfrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\Forms\SplashScreenfrm.resx">
       <DependentUpon>SplashScreenfrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Toolsfrm.resx">
+    <EmbeddedResource Include="src\Forms\Toolsfrm.resx">
       <DependentUpon>Toolsfrm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

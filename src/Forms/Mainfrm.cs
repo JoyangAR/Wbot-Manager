@@ -6,6 +6,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using WbotMgr.src;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace WbotMgr
@@ -14,6 +15,8 @@ namespace WbotMgr
     {
         public static string jsonFilePath = SplashScreenfrm.jsonFilePathSP;
         public static string jsonBaseDirectory = SplashScreenfrm.BaseDirectorySP;
+        public static string backupsDirectory = SplashScreenfrm.backupsDirectorySP;
+        public static string programmingDirectory = SplashScreenfrm.programmingDirectorySP;
         public BotConfiguration botConfig;
         private List<string> sectionItems = new List<string>();
         private List<string> groupItems = new List<string>();
@@ -21,24 +24,13 @@ namespace WbotMgr
 
         public MainForm()
         {
-            // Check if the file Newtonsoft.Json.dll exists in the execution location
-            string dllFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Newtonsoft.Json.dll");
-
-            if (!File.Exists(dllFilePath))
-            {
-                // Show a warning message if the file does not exist
-                MessageBox.Show("TheNewtonsoft.Json.dll file was not found in the application location.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                SplashScreenfrm SplashForm = Application.OpenForms.OfType<SplashScreenfrm>().FirstOrDefault();
-                SplashForm.Close();
-            }
             InitializeComponent();
             this.FormClosed += MainForm_FormClosing;
         }
 
         private void MainForm_FormClosing(object sender, FormClosedEventArgs e)
         {
-            SplashScreenfrm SplashForm = Application.OpenForms.OfType<SplashScreenfrm>().FirstOrDefault();
-            SplashForm.Close();
+            Application.Exit();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -929,7 +921,7 @@ namespace WbotMgr
 
         private void createBackupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (BackupsHandler.CreateBackup(jsonFilePath, jsonBaseDirectory))
+            if (BackupsHandler.CreateBackup(jsonFilePath, backupsDirectory, out string errorMsg))
             {
                 // Show Message if backup created
                 MessageBox.Show("Backup created successfully");
@@ -937,7 +929,7 @@ namespace WbotMgr
             else
             {
                 // Show Message if backup could not be created
-                MessageBox.Show("Error while creating backup");
+                MessageBox.Show($"Error while creating backup{Environment.NewLine}{errorMsg}");
             }
         }
 
@@ -952,8 +944,8 @@ namespace WbotMgr
                 {
                     // If there is no existing instance, create a new one
                     backupsForm = new Backupsfrm();
-                    backupsForm.tempJsonBaseDirectory = jsonBaseDirectory; // Assign the jsonBaseDirectory string
                     backupsForm.tempJsonFilePath = jsonFilePath; // Assign the jsonFilePath string
+                    backupsForm.backupsDirectory = backupsDirectory; // Assign the backupsDirectory string
                     backupsForm.Show(); // Show the backupsForm
                 }
                 else
@@ -1008,6 +1000,63 @@ namespace WbotMgr
                 case ListBox listBox when listBox == ContainsListBox:
                     ContainsRemove_Click(sender, EventArgs.Empty);
                     break;
+            }
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (TxtReply.SelectedText.Length > 0)
+            {
+                TxtReply.Copy();
+            }
+        }
+
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (TxtReply.SelectedText.Length > 0)
+            {
+                TxtReply.Cut();
+            }
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Clipboard.ContainsText())
+            {
+                TxtReply.Paste();
+            }
+        }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TxtReply.SelectAll();
+        }
+
+        private void programmingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Check if an existing instance of the Blockedfrm form is already open
+                Programmingfrm ProgrammingForm = Application.OpenForms.OfType<Programmingfrm>().FirstOrDefault();
+
+                if (ProgrammingForm == null)
+                {
+                    // If there is no existing instance, create a new one
+                    ProgrammingForm = new Programmingfrm();
+                    ProgrammingForm.tempJsonFilePath = jsonFilePath; // Assign the jsonFilePath string
+                    ProgrammingForm.tempProgrammingDirectory = programmingDirectory; // Assign the programmingDirectory string
+                    ProgrammingForm.Show(); // Show the backupsForm
+                }
+                else
+                {
+                    // If an instance already exists, bring it to the front
+                    ProgrammingForm.BringToFront();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception, for example, show an error message
+                MessageBox.Show($"Error opening the programmings form: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

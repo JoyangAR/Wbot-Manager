@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using System.Xml;
+using WbotMgr.src.Classes;
 using Timer = System.Windows.Forms.Timer;
 
 namespace WbotMgr
@@ -12,6 +12,9 @@ namespace WbotMgr
     {
         public static string jsonFilePathSP = null;
         public static string BaseDirectorySP = null;
+        public static string backupsDirectorySP = null;
+        public static string programmingDirectorySP = null;
+        private string iniFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.ini");
         private Timer timer;
 
         public SplashScreenfrm()
@@ -23,6 +26,7 @@ namespace WbotMgr
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
+            VerifyNecesaryDll();
             StartCountDown();
         }
 
@@ -30,7 +34,7 @@ namespace WbotMgr
         {
             // When the timer expires, show the main form and stop the timer
             timer.Stop();
-            LoadXML();
+            LoadConfiguration();
         }
 
         public static SplashScreenfrm Instance { get; private set; }
@@ -50,6 +54,8 @@ namespace WbotMgr
             MainForm mainForm = new MainForm();
             MainForm.jsonBaseDirectory = BaseDirectorySP; // Assign the jsonBaseDirectory string
             MainForm.jsonFilePath = jsonFilePathSP; // Assign the jsonFilePath string
+            MainForm.backupsDirectory = backupsDirectorySP;
+            MainForm.programmingDirectory = programmingDirectorySP;
             mainForm.Show();
             this.Hide();
             mainForm.Focus();
@@ -148,19 +154,16 @@ namespace WbotMgr
 
         #endregion Descriptores de acceso de atributos de ensamblado
 
-        private void LoadXML()
+        private void LoadConfiguration()
         {
-            // Check if WMgrConfig.xml exists
-            if (File.Exists("WMgrConfig.xml"))
+            // Check if the INI file exists
+            if (File.Exists(iniFilePath))
             {
-                // Load existing WMgrConfig.xml to retrieve jsonFilePathSP
-                XmlDocument existingConfigXml = new XmlDocument();
-                existingConfigXml.Load("WMgrConfig.xml");
+                // Create INIHandler to read the INI file
+                INIHandler iniHandler = new INIHandler(iniFilePath);
 
-                XmlNode filePathNode = existingConfigXml.SelectSingleNode("/Configuration/jsonFilePath");
-
-                // Retrieve jsonFilePathSP from existing WMgrConfig.xml
-                jsonFilePathSP = filePathNode?.InnerText;
+                // Retrieve jsonFilePath from the INI file
+                jsonFilePathSP = iniHandler.ReadString("Configuration", "jsonFilePath", string.Empty);
 
                 if (!string.IsNullOrEmpty(jsonFilePathSP) && File.Exists(jsonFilePathSP))
                 {
@@ -171,7 +174,7 @@ namespace WbotMgr
                 }
             }
 
-            // If WMgrConfig.xml doesn't exist or jsonFilePathSP is invalid, check for bot.json in the app's startup location
+            // If INI file doesn't exist or jsonFilePathSP is invalid, check for bot.json in the app's startup location
             string startupPath = AppDomain.CurrentDomain.BaseDirectory;
             string botJsonPath = Path.Combine(startupPath, "bot.json");
 
@@ -180,8 +183,8 @@ namespace WbotMgr
                 // Set jsonFilePath
                 jsonFilePathSP = botJsonPath;
 
-                // Save bot.json path to the XML
-                SaveJsonPathToXml(botJsonPath);
+                // Save bot.json path to the INI file
+                SaveJsonPathToIni(botJsonPath);
 
                 // Set the base directory of MainForm to the location of bot.json
                 SetMainFormBaseDirectory();
@@ -191,22 +194,16 @@ namespace WbotMgr
                 return; // Exit the method to avoid showing OpenFileDialog
             }
 
-            // If neither WMgrConfig.xml nor bot.json is found, open the file browser
+            // If neither the INI file nor bot.json is found, open the file browser
             OpenFileBrowser();
         }
 
-        private void SaveJsonPathToXml(string jsonPath)
+        private void SaveJsonPathToIni(string jsonPath)
         {
-            XmlDocument xmlDoc = new XmlDocument();
+            INIHandler iniHandler = new INIHandler(iniFilePath);
 
-            XmlElement rootElement = xmlDoc.CreateElement("Configuration");
-            XmlElement filePathElement = xmlDoc.CreateElement("jsonFilePath");
-            filePathElement.InnerText = jsonPath;
-
-            rootElement.AppendChild(filePathElement);
-            xmlDoc.AppendChild(rootElement);
-
-            xmlDoc.Save("WMgrConfig.xml");
+            // Write the jsonFilePath to the INI file
+            iniHandler.WriteString("Configuration", "jsonFilePath", jsonPath);
         }
 
         private void OpenFileBrowser()
@@ -222,10 +219,9 @@ namespace WbotMgr
                 // Get the selected file path
                 string selectedFilePath = openFileDialog.FileName;
 
-                // Obtiene la extensión del archivo seleccionado
+                // Verify that the file has a .json extension
                 string fileExtension = Path.GetExtension(openFileDialog.FileName);
 
-                // Verifica si la extensión es .json
                 if (string.Equals(fileExtension, ".json", StringComparison.OrdinalIgnoreCase))
                 {
                     // Save File Path as a variable
@@ -234,24 +230,8 @@ namespace WbotMgr
                     // Set the base directory of MainForm to the location of jsonFilePath
                     SetMainFormBaseDirectory();
 
-                    // Create a new XML document
-                    XmlDocument xmlDoc = new XmlDocument();
-
-                    // Create the root element
-                    XmlElement rootElement = xmlDoc.CreateElement("Configuration");
-
-                    // Create the "FilePath" element and set its value as the selected file path
-                    XmlElement filePathElement = xmlDoc.CreateElement("jsonFilePath");
-                    filePathElement.InnerText = selectedFilePath;
-
-                    // Attach the "FilePath" element to the root element
-                    rootElement.AppendChild(filePathElement);
-
-                    // Attach the root element to the XML document
-                    xmlDoc.AppendChild(rootElement);
-
-                    // Save the XML document to a file
-                    xmlDoc.Save("WMgrConfig.xml");
+                    // Save the jsonFilePath to the INI file
+                    SaveJsonPathToIni(selectedFilePath);
 
                     // Show the MainForm
                     ShowMainForm();
@@ -280,7 +260,40 @@ namespace WbotMgr
                 if (Directory.Exists(directory))
                 {
                     BaseDirectorySP = directory;
+                    backupsDirectorySP = Path.Combine(BaseDirectorySP, "Config Backups");
+                    programmingDirectorySP = Path.Combine(BaseDirectorySP, "Programmings");
+                    CreateBackupsFolder();
+                    CreateProgrammingFolder();
                 }
+            }
+        }
+
+        private void VerifyNecesaryDll()
+        {
+            // Check if the file Newtonsoft.Json.dll exists in the execution location
+            string dllFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Newtonsoft.Json.dll");
+
+            if (!File.Exists(dllFilePath))
+            {
+                // Show a warning message if the file does not exist
+                MessageBox.Show("The Newtonsoft.Json.dll file was not found in the application location.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
+            }
+        }
+
+        private void CreateBackupsFolder()
+        {
+            if (!Directory.Exists(backupsDirectorySP))
+            {
+                Directory.CreateDirectory(backupsDirectorySP);
+            }
+        }
+
+        private void CreateProgrammingFolder()
+        {
+            if (!Directory.Exists(programmingDirectorySP))
+            {
+                Directory.CreateDirectory(programmingDirectorySP);
             }
         }
     }
