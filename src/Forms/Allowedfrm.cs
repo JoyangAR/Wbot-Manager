@@ -1,5 +1,4 @@
-﻿using AssistingClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,7 +9,7 @@ namespace WbotMgr
     public partial class Allowedfrm : Form
     {
         // Property to store a reference to the Mainfrm form
-        public new MainForm ParentForm { get; set; }
+        public new Mainfrm ParentForm { get; set; }
 
         // Add a property to store the botConfig object
         public BotConfiguration BotConfig { get; set; }

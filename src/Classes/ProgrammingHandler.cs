@@ -1,10 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace WbotMgr
 {
     internal class ProgrammingHandler
     {
+        public Dictionary<DayOfWeek, string> GetDaysFileNames()
+        {
+            return new Dictionary<DayOfWeek, string>
+            {
+                { DayOfWeek.Monday, "botJson_Monday.bak" },
+                { DayOfWeek.Tuesday, "botJson_Tuesday.bak" },
+                {DayOfWeek.Wednesday, "botJson_Wednesday.bak" },
+                { DayOfWeek.Thursday, "botJson_Thursday.bak" },
+                { DayOfWeek.Friday, "botJson_Friday.bak" },
+                { DayOfWeek.Saturday, "botJson_Saturday.bak" },
+                { DayOfWeek.Sunday, "botJson_Sunday.bak" },
+            };
+        }
+
+        public Dictionary<string, string> GetWeeklyNames()
+        {
+            return new Dictionary<string, string>
+            {
+                 { "MonToFrid", "botJson_Weekdays.bak" },  // Monday to Friday
+                { "SatAndSun", "botJson_Weekend.bak" }   // Saturday & Sunday
+            };
+        }
+
         public static bool CreateProgramming(string filePath, string folderPath, string pgmname, out string errorMsg)
         {
             // Check if the original file exists

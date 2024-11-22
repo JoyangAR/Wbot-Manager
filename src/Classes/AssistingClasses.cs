@@ -2,9 +2,21 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
-namespace AssistingClasses
+namespace WbotMgr
 {
+
+    public class GlobalSettings
+    {
+        public static string jsonFilePath { get; set; }
+        public static string baseDirectory { get; set; }
+        public static string backupsDirectory { get; set; }
+        public static string programmingDirectory { get; set; }
+        public static string iniFilePath { get; set; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.ini");
+    }
+
     public class AppConfig
     {
         public bool headless { get; set; }

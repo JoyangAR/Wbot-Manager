@@ -10,11 +10,6 @@ namespace WbotMgr
 {
     internal partial class SplashScreenfrm : Form
     {
-        public static string jsonFilePathSP = null;
-        public static string BaseDirectorySP = null;
-        public static string backupsDirectorySP = null;
-        public static string programmingDirectorySP = null;
-        private string iniFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.ini");
         private Timer timer;
 
         public SplashScreenfrm()
@@ -51,14 +46,10 @@ namespace WbotMgr
         private void ShowMainForm()
         {
             // Create an instance of the MainForm, show it, and hide the SplashScreen
-            MainForm mainForm = new MainForm();
-            MainForm.jsonBaseDirectory = BaseDirectorySP; // Assign the jsonBaseDirectory string
-            MainForm.jsonFilePath = jsonFilePathSP; // Assign the jsonFilePath string
-            MainForm.backupsDirectory = backupsDirectorySP;
-            MainForm.programmingDirectory = programmingDirectorySP;
-            mainForm.Show();
+            Mainfrm MainForm = new Mainfrm();
+            MainForm.Show();
             this.Hide();
-            mainForm.Focus();
+            MainForm.Focus();
             if (IsAppRunning())
             {
                 MessageBox.Show("The application is already running.");
@@ -157,17 +148,17 @@ namespace WbotMgr
         private void LoadConfiguration()
         {
             // Check if the INI file exists
-            if (File.Exists(iniFilePath))
+            if (File.Exists(GlobalSettings.iniFilePath))
             {
                 // Create INIHandler to read the INI file
-                INIHandler iniHandler = new INIHandler(iniFilePath);
+                INIHandler iniHandler = new INIHandler(GlobalSettings.iniFilePath);
 
                 // Retrieve jsonFilePath from the INI file
-                jsonFilePathSP = iniHandler.ReadString("Configuration", "jsonFilePath", string.Empty);
+                GlobalSettings.jsonFilePath = iniHandler.ReadString("Configuration", "jsonFilePath", string.Empty);
 
-                if (!string.IsNullOrEmpty(jsonFilePathSP) && File.Exists(jsonFilePathSP))
+                if (!string.IsNullOrEmpty(GlobalSettings.jsonFilePath) && File.Exists(GlobalSettings.jsonFilePath))
                 {
-                    // The jsonFilePathSP is valid, set the base directory of MainForm and show the MainForm
+                    // The jsonFilePath is valid, set the base directory of MainForm and show the MainForm
                     SetMainFormBaseDirectory();
                     ShowMainForm();
                     return; // Exit the method to avoid showing OpenFileDialog
@@ -181,7 +172,7 @@ namespace WbotMgr
             if (File.Exists(botJsonPath))
             {
                 // Set jsonFilePath
-                jsonFilePathSP = botJsonPath;
+                GlobalSettings.jsonFilePath = botJsonPath;
 
                 // Save bot.json path to the INI file
                 SaveJsonPathToIni(botJsonPath);
@@ -200,7 +191,7 @@ namespace WbotMgr
 
         private void SaveJsonPathToIni(string jsonPath)
         {
-            INIHandler iniHandler = new INIHandler(iniFilePath);
+            INIHandler iniHandler = new INIHandler(GlobalSettings.iniFilePath);
 
             // Write the jsonFilePath to the INI file
             iniHandler.WriteString("Configuration", "jsonFilePath", jsonPath);
@@ -225,7 +216,7 @@ namespace WbotMgr
                 if (string.Equals(fileExtension, ".json", StringComparison.OrdinalIgnoreCase))
                 {
                     // Save File Path as a variable
-                    jsonFilePathSP = selectedFilePath;
+                    GlobalSettings.jsonFilePath = selectedFilePath;
 
                     // Set the base directory of MainForm to the location of jsonFilePath
                     SetMainFormBaseDirectory();
@@ -254,14 +245,14 @@ namespace WbotMgr
         private void SetMainFormBaseDirectory()
         {
             // Set the base directory of MainForm to the location of jsonFilePath
-            if (!string.IsNullOrEmpty(jsonFilePathSP))
+            if (!string.IsNullOrEmpty(GlobalSettings.jsonFilePath))
             {
-                string directory = Path.GetDirectoryName(jsonFilePathSP);
+                string directory = Path.GetDirectoryName(GlobalSettings.jsonFilePath);
                 if (Directory.Exists(directory))
                 {
-                    BaseDirectorySP = directory;
-                    backupsDirectorySP = Path.Combine(BaseDirectorySP, "Config Backups");
-                    programmingDirectorySP = Path.Combine(BaseDirectorySP, "Programmings");
+                    GlobalSettings.baseDirectory = directory;
+                    GlobalSettings.backupsDirectory = Path.Combine(GlobalSettings.baseDirectory, "Config Backups");
+                    GlobalSettings.programmingDirectory = Path.Combine(GlobalSettings.baseDirectory, "Programmings");
                     CreateBackupsFolder();
                     CreateProgrammingFolder();
                 }
@@ -283,17 +274,17 @@ namespace WbotMgr
 
         private void CreateBackupsFolder()
         {
-            if (!Directory.Exists(backupsDirectorySP))
+            if (!Directory.Exists(GlobalSettings.backupsDirectory))
             {
-                Directory.CreateDirectory(backupsDirectorySP);
+                Directory.CreateDirectory(GlobalSettings.backupsDirectory);
             }
         }
 
         private void CreateProgrammingFolder()
         {
-            if (!Directory.Exists(programmingDirectorySP))
+            if (!Directory.Exists(GlobalSettings.programmingDirectory))
             {
-                Directory.CreateDirectory(programmingDirectorySP);
+                Directory.CreateDirectory(GlobalSettings.programmingDirectory);
             }
         }
     }

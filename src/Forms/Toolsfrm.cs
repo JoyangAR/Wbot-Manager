@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Drawing.Text;
+using System.Linq;
 using System.Web;
 using System.Windows.Forms;
+using WbotMgr.src;
+using WbotMgr.src.Classes;
 
 namespace WbotMgr
 {
     public partial class Toolsfrm : Form
     {
         // Property to store a reference to the MainForm form
-        public MainForm ParentForm2 { get; set; }
+        public Mainfrm ParentForm2 { get; set; }
         
         public Toolsfrm()
         {
@@ -24,6 +27,9 @@ namespace WbotMgr
             ChkReplyUnread.Checked = ParentForm2.botConfig.appconfig.replyUnreadMsg;
             ChkQuote.Checked = ParentForm2.botConfig.appconfig.quoteMessageInReply;
             ChkHeadless.Checked = ParentForm2.botConfig.appconfig.headless;
+            // Handle Auto Scheduling
+            INIHandler iniHandler = new INIHandler(GlobalSettings.iniFilePath);
+            ChkAutoScheduling.Checked = iniHandler.ReadBoolean("Configuration", "Auto Scheduling", false);
             // If CustomInjectionFolder is not empty, store it in the injectionfolder variable
             if (!string.IsNullOrEmpty(ParentForm2.botConfig.appconfig.CustomInjectionFolder))
             {
@@ -49,8 +55,38 @@ namespace WbotMgr
                 ParentForm2.botConfig.appconfig.headless = ChkHeadless.Checked;
                 ParentForm2.botConfig.appconfig.CustomInjectionFolder = injectionfolder;
                 ParentForm2.botConfig.appconfig.webhook = webhook;
-                ParentForm2.ApplyChanges(); // Apply the changes
-                this.Close(); // Close the Toolsfrm form
+                // Handle Auto Scheduling
+                INIHandler iniHandler = new INIHandler(GlobalSettings.iniFilePath);
+                bool currentAutoScheduling = iniHandler.ReadBoolean("Configuration", "Auto Scheduling", false);
+
+                if (ChkAutoScheduling.Checked != currentAutoScheduling)
+                {
+                    // Inform the user about the application restart
+                    DialogResult result = MessageBox.Show(
+                        "Changing the Auto Scheduling setting will restart the application. Do you want to continue?",
+                        "Restart Required",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning
+                    );
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // Update the INI file with the new Auto Scheduling setting
+                        iniHandler.WriteBoolean("Configuration", "Auto Scheduling", ChkAutoScheduling.Checked);
+
+                        // Apply other changes before restarting
+                        ParentForm2.ApplyChanges();
+
+                        // Restart the application
+                        Application.Restart();
+                        return; // Exit the method to prevent further execution
+                    }
+                }
+                else
+                {
+                    ParentForm2.ApplyChanges();
+                    this.Close();
+                }
             }
             else
             {
@@ -158,6 +194,58 @@ namespace WbotMgr
                 // Modify the link in webhook
                webhook = webhookInputForm.UserInput;
                                 
+            }
+        }
+
+        private void BtnBackups_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Check if an existing instance of the Blockedfrm form is already open
+                Backupsfrm backupsForm = Application.OpenForms.OfType<Backupsfrm>().FirstOrDefault();
+
+                if (backupsForm == null)
+                {
+                    // If there is no existing instance, create a new one
+                    backupsForm = new Backupsfrm();
+                    backupsForm.Show(); // Show the backupsForm
+                }
+                else
+                {
+                    // If an instance already exists, bring it to the front
+                    backupsForm.BringToFront();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception, for example, show an error message
+                MessageBox.Show($"Error opening the backups form: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnProgramming_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Check if an existing instance of the Programmingfrm form is already open
+                Programmingfrm ProgrammingForm = Application.OpenForms.OfType<Programmingfrm>().FirstOrDefault();
+
+                if (ProgrammingForm == null)
+                {
+                    // If there is no existing instance, create a new one
+                    ProgrammingForm = new Programmingfrm();
+                    ProgrammingForm.Show(); // Show the ProgrammingForm
+                }
+                else
+                {
+                    // If an instance already exists, bring it to the front
+                    ProgrammingForm.BringToFront();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception, for example, show an error message
+                MessageBox.Show($"Error opening the programmings form: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

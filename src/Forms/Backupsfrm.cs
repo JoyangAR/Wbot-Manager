@@ -6,11 +6,6 @@ namespace WbotMgr
 {
     public partial class Backupsfrm : Form
     {
-        // local form strings from MainForm
-        public string tempJsonFilePath;
-
-        public string backupsDirectory;
-
         public Backupsfrm()
         {
             InitializeComponent();
@@ -25,7 +20,7 @@ namespace WbotMgr
         private void FillBackupsListBox()
         {
             string searchPattern = "botJson_*.bak"; // Pattern to match backup files
-            string[] backupFiles = Directory.GetFiles(backupsDirectory, searchPattern); // Get all backup files
+            string[] backupFiles = Directory.GetFiles(GlobalSettings.backupsDirectory, searchPattern); // Get all backup files
 
             // Add each backup file name to the ListBox
             foreach (string backupFile in backupFiles)
@@ -36,7 +31,7 @@ namespace WbotMgr
 
         private void BtnCreateBackup_Click(object sender, EventArgs e)
         {
-            if (BackupsHandler.CreateBackup(tempJsonFilePath, backupsDirectory, out string errorMsg))
+            if (BackupsHandler.CreateBackup(GlobalSettings.jsonFilePath, GlobalSettings.backupsDirectory, out string errorMsg))
             {
                 MessageBox.Show("Backup created successfully");
                 // Refill Listbox
@@ -53,7 +48,7 @@ namespace WbotMgr
         {
             if (BackupsListBox.SelectedIndex != -1)
             {
-                string backupToDelete = Path.Combine(backupsDirectory, BackupsListBox.SelectedItem.ToString());
+                string backupToDelete = Path.Combine(GlobalSettings.backupsDirectory, BackupsListBox.SelectedItem.ToString());
                 if (BackupsHandler.DeleteBackup(backupToDelete, out string errorMsg))
                 {
                     // Remove from ListBox too
@@ -77,8 +72,8 @@ namespace WbotMgr
         {
             if (BackupsListBox.SelectedIndex != -1)
             {
-                string backupToRestore = Path.Combine(backupsDirectory, BackupsListBox.SelectedItem.ToString());
-                if (BackupsHandler.RestoreBackup(tempJsonFilePath, backupToRestore, out string errorMsg))
+                string backupToRestore = Path.Combine(GlobalSettings.backupsDirectory, BackupsListBox.SelectedItem.ToString());
+                if (BackupsHandler.RestoreBackup(GlobalSettings.jsonFilePath, backupToRestore, out string errorMsg))
                 {
                     // If restored close application
                     MessageBox.Show("Backup restored successfully. Will be aviable when Wbot Manager starts again.");

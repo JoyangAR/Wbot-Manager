@@ -30,6 +30,7 @@
         {
             this.PgmTabControl = new System.Windows.Forms.TabControl();
             this.DateTabPage = new System.Windows.Forms.TabPage();
+            this.LabelExistence = new System.Windows.Forms.Label();
             this.PgmMonthCalendar = new System.Windows.Forms.MonthCalendar();
             this.WeeklyTabPage = new System.Windows.Forms.TabPage();
             this.RadSunday = new System.Windows.Forms.RadioButton();
@@ -43,18 +44,21 @@
             this.RadMonToFrid = new System.Windows.Forms.RadioButton();
             this.BtnApply = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
-            this.LabelExistence = new System.Windows.Forms.Label();
             this.BtnDelete = new System.Windows.Forms.Button();
+            this.PgmMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoSchedulerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PgmTabControl.SuspendLayout();
             this.DateTabPage.SuspendLayout();
             this.WeeklyTabPage.SuspendLayout();
+            this.PgmMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // PgmTabControl
             // 
             this.PgmTabControl.Controls.Add(this.DateTabPage);
             this.PgmTabControl.Controls.Add(this.WeeklyTabPage);
-            this.PgmTabControl.Location = new System.Drawing.Point(12, 12);
+            this.PgmTabControl.Location = new System.Drawing.Point(12, 43);
             this.PgmTabControl.Name = "PgmTabControl";
             this.PgmTabControl.SelectedIndex = 0;
             this.PgmTabControl.Size = new System.Drawing.Size(287, 301);
@@ -71,6 +75,15 @@
             this.DateTabPage.TabIndex = 0;
             this.DateTabPage.Text = "By Date";
             this.DateTabPage.UseVisualStyleBackColor = true;
+            // 
+            // LabelExistence
+            // 
+            this.LabelExistence.AutoSize = true;
+            this.LabelExistence.Location = new System.Drawing.Point(11, 183);
+            this.LabelExistence.Name = "LabelExistence";
+            this.LabelExistence.Size = new System.Drawing.Size(53, 13);
+            this.LabelExistence.TabIndex = 5;
+            this.LabelExistence.Text = "Existence";
             // 
             // PgmMonthCalendar
             // 
@@ -192,7 +205,7 @@
             // 
             // BtnApply
             // 
-            this.BtnApply.Location = new System.Drawing.Point(220, 329);
+            this.BtnApply.Location = new System.Drawing.Point(220, 350);
             this.BtnApply.Name = "BtnApply";
             this.BtnApply.Size = new System.Drawing.Size(75, 23);
             this.BtnApply.TabIndex = 5;
@@ -202,7 +215,7 @@
             // 
             // BtnSave
             // 
-            this.BtnSave.Location = new System.Drawing.Point(139, 329);
+            this.BtnSave.Location = new System.Drawing.Point(139, 350);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(75, 23);
             this.BtnSave.TabIndex = 6;
@@ -210,18 +223,9 @@
             this.BtnSave.UseVisualStyleBackColor = true;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
-            // LabelExistence
-            // 
-            this.LabelExistence.AutoSize = true;
-            this.LabelExistence.Location = new System.Drawing.Point(11, 183);
-            this.LabelExistence.Name = "LabelExistence";
-            this.LabelExistence.Size = new System.Drawing.Size(53, 13);
-            this.LabelExistence.TabIndex = 5;
-            this.LabelExistence.Text = "Existence";
-            // 
             // BtnDelete
             // 
-            this.BtnDelete.Location = new System.Drawing.Point(12, 329);
+            this.BtnDelete.Location = new System.Drawing.Point(12, 350);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(75, 23);
             this.BtnDelete.TabIndex = 7;
@@ -229,15 +233,42 @@
             this.BtnDelete.UseVisualStyleBackColor = true;
             this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
+            // PgmMenuStrip
+            // 
+            this.PgmMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuToolStripMenuItem});
+            this.PgmMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.PgmMenuStrip.Name = "PgmMenuStrip";
+            this.PgmMenuStrip.Size = new System.Drawing.Size(311, 24);
+            this.PgmMenuStrip.TabIndex = 8;
+            this.PgmMenuStrip.Text = "menuStrip1";
+            // 
+            // menuToolStripMenuItem
+            // 
+            this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.autoSchedulerToolStripMenuItem});
+            this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.menuToolStripMenuItem.Text = "Menu";
+            // 
+            // autoSchedulerToolStripMenuItem
+            // 
+            this.autoSchedulerToolStripMenuItem.Name = "autoSchedulerToolStripMenuItem";
+            this.autoSchedulerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autoSchedulerToolStripMenuItem.Text = "Auto Scheduler";
+            this.autoSchedulerToolStripMenuItem.Click += new System.EventHandler(this.autoSchedulerToolStripMenuItem_Click);
+            // 
             // Programmingfrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(311, 364);
+            this.ClientSize = new System.Drawing.Size(311, 385);
             this.Controls.Add(this.BtnDelete);
             this.Controls.Add(this.BtnSave);
             this.Controls.Add(this.BtnApply);
             this.Controls.Add(this.PgmTabControl);
+            this.Controls.Add(this.PgmMenuStrip);
+            this.MainMenuStrip = this.PgmMenuStrip;
             this.Name = "Programmingfrm";
             this.Text = "Programming Manager";
             this.Load += new System.EventHandler(this.Programmingfrm_Load);
@@ -246,7 +277,10 @@
             this.DateTabPage.PerformLayout();
             this.WeeklyTabPage.ResumeLayout(false);
             this.WeeklyTabPage.PerformLayout();
+            this.PgmMenuStrip.ResumeLayout(false);
+            this.PgmMenuStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -269,5 +303,8 @@
         private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.Label LabelExistence;
         private System.Windows.Forms.Button BtnDelete;
+        private System.Windows.Forms.MenuStrip PgmMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem autoSchedulerToolStripMenuItem;
     }
 }

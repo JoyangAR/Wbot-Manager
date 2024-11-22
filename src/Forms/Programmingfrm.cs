@@ -4,17 +4,12 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using WbotMgr.src.Classes;
 
 namespace WbotMgr.src
 {
     public partial class Programmingfrm : Form
     {
-        // Local form strings from MainForm
-
-        public string tempJsonFilePath;
-
-        public string tempProgrammingDirectory;
-
         // Global dictionary associating RadioButtons with file names
         private Dictionary<RadioButton, string> radioButtonPatterns;
 
@@ -47,6 +42,18 @@ namespace WbotMgr.src
         {
             // Update RadioButton states on form load
             LoadRadioButtons();
+
+            // Create an INIHandler to manage the INI file
+            INIHandler iniHandler = new INIHandler(GlobalSettings.iniFilePath);
+
+            // Read the current state of "Auto Scheduling" and update the menu text accordingly
+            bool isAutoSchedulingEnabled = iniHandler.ReadBoolean("Configuration", "Auto Scheduling", false);
+
+            // Update the menu item's text based on the current state
+            autoSchedulerToolStripMenuItem.Text = isAutoSchedulingEnabled
+                ? "Auto Scheduling ON"
+                : "Auto Scheduling OFF";
+
         }
 
         // Update RadioButtons based on the existence of files
@@ -56,7 +63,7 @@ namespace WbotMgr.src
             {
                 RadioButton radioButton = entry.Key;
                 string fileName = entry.Value;
-                string filePath = Path.Combine(tempProgrammingDirectory, fileName);
+                string filePath = Path.Combine(GlobalSettings.programmingDirectory, fileName);
 
                 // Check if the file exists and update font color
                 radioButton.ForeColor = File.Exists(filePath) ? Color.Black : Color.LightGray;
@@ -76,10 +83,10 @@ namespace WbotMgr.src
             }
 
             // Destination path for the programming file
-            string destinationPath = Path.Combine(tempProgrammingDirectory, programmingName);
+            string destinationPath = Path.Combine(GlobalSettings.programmingDirectory, programmingName);
 
             // Call the handler to set the programming
-            if (ProgrammingHandler.SetProgramming(tempJsonFilePath, destinationPath, out string errorMsg))
+            if (ProgrammingHandler.SetProgramming(GlobalSettings.jsonFilePath, destinationPath, out string errorMsg))
             {
                 MessageBox.Show("Programming set successfully. It will be available after restarting Wbot Manager.");
                 Application.Restart();
@@ -104,13 +111,13 @@ namespace WbotMgr.src
             }
 
             // Destination path for the programming file
-            string destinationPath = Path.Combine(tempProgrammingDirectory, programmingName);
+            string destinationPath = Path.Combine(GlobalSettings.programmingDirectory, programmingName);
             string errorMsg;
 
             // Determine whether to create or update the file
             bool success = File.Exists(destinationPath)
-                ? ProgrammingHandler.UpdateProgramming(tempJsonFilePath, tempProgrammingDirectory, programmingName, out errorMsg)
-                : ProgrammingHandler.CreateProgramming(tempJsonFilePath, tempProgrammingDirectory, programmingName, out errorMsg);
+                ? ProgrammingHandler.UpdateProgramming(GlobalSettings.jsonFilePath, GlobalSettings.programmingDirectory, programmingName, out errorMsg)
+                : ProgrammingHandler.CreateProgramming(GlobalSettings.jsonFilePath, GlobalSettings.programmingDirectory, programmingName, out errorMsg);
 
             // Handle the result
             if (success)
@@ -134,7 +141,7 @@ namespace WbotMgr.src
 
             // Format the expected file name
             string programmingFileName = $"botJson_{selectedDate:yyyy_MM_dd}.bak";
-            string filePath = Path.Combine(tempProgrammingDirectory, programmingFileName);
+            string filePath = Path.Combine(GlobalSettings.programmingDirectory, programmingFileName);
 
             // Update label and calendar appearance based on file existence
             if (File.Exists(filePath))
@@ -163,7 +170,7 @@ namespace WbotMgr.src
             }
 
             // Full path to the programming file
-            string destinationPath = Path.Combine(tempProgrammingDirectory, programmingName);
+            string destinationPath = Path.Combine(GlobalSettings.programmingDirectory, programmingName);
 
             // Check if the file exists before attempting to delete
             if (!File.Exists(destinationPath))
@@ -224,6 +231,32 @@ namespace WbotMgr.src
             }
 
             return programmingName;
+        }
+
+        private void autoSchedulerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Create INIHandler to read the INI file
+            INIHandler iniHandler = new INIHandler(GlobalSettings.iniFilePath);
+
+            // Read the current state of "Auto Scheduling"
+            bool isAutoSchedulingEnabled = iniHandler.ReadBoolean("Configuration", "Auto Scheduling", false);
+
+            // Display a confirmation message to the user
+            string message = isAutoSchedulingEnabled
+                ? "Are you sure you want to disable Auto Scheduling? The application will restart."
+                : "Are you sure you want to enable Auto Scheduling? The application will restart.";
+
+            DialogResult result = MessageBox.Show(message, "Confirm Action", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Toggle the "Auto Scheduling" state in the INI file
+                iniHandler.WriteBoolean("Configuration", "Auto Scheduling", !isAutoSchedulingEnabled);
+
+                // Restart the application
+                Application.Restart();
+                Application.Exit();
+            }
         }
     }
 }

@@ -1,28 +1,25 @@
-﻿using AssistingClasses;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using WbotMgr.src;
+using WbotMgr.src.Classes;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace WbotMgr
 {
-    public partial class MainForm : Form
+    public partial class Mainfrm : Form
     {
-        public static string jsonFilePath = SplashScreenfrm.jsonFilePathSP;
-        public static string jsonBaseDirectory = SplashScreenfrm.BaseDirectorySP;
-        public static string backupsDirectory = SplashScreenfrm.backupsDirectorySP;
-        public static string programmingDirectory = SplashScreenfrm.programmingDirectorySP;
         public BotConfiguration botConfig;
         private List<string> sectionItems = new List<string>();
         private List<string> groupItems = new List<string>();
         private List<string> generatedNames = new List<string>();
 
-        public MainForm()
+        public Mainfrm()
         {
             InitializeComponent();
             this.FormClosed += MainForm_FormClosing;
@@ -38,7 +35,7 @@ namespace WbotMgr
             try
             {
                 // Read the content of the JSON file
-                string jsonContent = File.ReadAllText(jsonFilePath);
+                string jsonContent = File.ReadAllText(GlobalSettings.jsonFilePath);
 
                 // Deserialize the JSON into a BotConfiguration object
                 botConfig = JsonConvert.DeserializeObject<BotConfiguration>(jsonContent);
@@ -119,6 +116,17 @@ namespace WbotMgr
                 // Handle the exception, for example, show an error message
                 MessageBox.Show($"Error loading configuration: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            // Create INIHandler to read the INI file
+            INIHandler iniHandler = new INIHandler(GlobalSettings.iniFilePath);
+
+            // Enable Auto Scheduling
+            if (iniHandler.ReadBoolean("Configuration", "Auto Scheduling", false))
+            {
+                LabelAutoScheduler.Text = "Auto Scheduler ON";
+                LabelAutoScheduler.ForeColor = Color.Green; // Set the text color to green
+                StartAutoScheduler();
+            }           
         }
 
         private string GetUniqueSectionName(string sectionName)
@@ -340,7 +348,7 @@ namespace WbotMgr
                     string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
 
                     // Write the updated JSON back to the file
-                    File.WriteAllText(jsonFilePath, updatedJson);
+                    File.WriteAllText(GlobalSettings.jsonFilePath, updatedJson);
 
                     // Reload the lists and refresh the ListBox only if there are changes in sectiongroup or sectionname
                     if (sectionGroupChanged || sectionNameChanged)
@@ -413,7 +421,7 @@ namespace WbotMgr
             string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
 
             // Write the updated JSON back to the file
-            File.WriteAllText(jsonFilePath, updatedJson);
+            File.WriteAllText(GlobalSettings.jsonFilePath, updatedJson);
         }
 
         private void NameListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -579,7 +587,7 @@ namespace WbotMgr
 
                     // Move the selected file to the application's location
 
-                    string destinationPath = Path.Combine(jsonBaseDirectory, Path.GetFileName(selectedFilePath));
+                    string destinationPath = Path.Combine(GlobalSettings.baseDirectory, Path.GetFileName(selectedFilePath));
 
                     try
                     {
@@ -692,7 +700,7 @@ namespace WbotMgr
                     string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
 
                     // Write the updated JSON back to the file
-                    File.WriteAllText(jsonFilePath, updatedJson);
+                    File.WriteAllText(GlobalSettings.jsonFilePath, updatedJson);
 
                     // Remove the section name from the ListBox
                     NameListBox.Items.Remove(selectedItem);
@@ -791,7 +799,7 @@ namespace WbotMgr
 
             // You can also save the configuration to the JSON file if needed
             string updatedJson = JsonConvert.SerializeObject(botConfig, Formatting.Indented);
-            File.WriteAllText(jsonFilePath, updatedJson);
+            File.WriteAllText(GlobalSettings.jsonFilePath, updatedJson);
         }
 
         private void BtnDettach_Click(object sender, EventArgs e)
@@ -921,7 +929,7 @@ namespace WbotMgr
 
         private void createBackupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (BackupsHandler.CreateBackup(jsonFilePath, backupsDirectory, out string errorMsg))
+            if (BackupsHandler.CreateBackup(GlobalSettings.jsonFilePath, GlobalSettings.backupsDirectory, out string errorMsg))
             {
                 // Show Message if backup created
                 MessageBox.Show("Backup created successfully");
@@ -944,8 +952,6 @@ namespace WbotMgr
                 {
                     // If there is no existing instance, create a new one
                     backupsForm = new Backupsfrm();
-                    backupsForm.tempJsonFilePath = jsonFilePath; // Assign the jsonFilePath string
-                    backupsForm.backupsDirectory = backupsDirectory; // Assign the backupsDirectory string
                     backupsForm.Show(); // Show the backupsForm
                 }
                 else
@@ -1036,16 +1042,14 @@ namespace WbotMgr
         {
             try
             {
-                // Check if an existing instance of the Blockedfrm form is already open
+                // Check if an existing instance of the Programmingfrm form is already open
                 Programmingfrm ProgrammingForm = Application.OpenForms.OfType<Programmingfrm>().FirstOrDefault();
 
                 if (ProgrammingForm == null)
                 {
                     // If there is no existing instance, create a new one
                     ProgrammingForm = new Programmingfrm();
-                    ProgrammingForm.tempJsonFilePath = jsonFilePath; // Assign the jsonFilePath string
-                    ProgrammingForm.tempProgrammingDirectory = programmingDirectory; // Assign the programmingDirectory string
-                    ProgrammingForm.Show(); // Show the backupsForm
+                    ProgrammingForm.Show(); // Show the ProgrammingForm
                 }
                 else
                 {
@@ -1057,6 +1061,197 @@ namespace WbotMgr
             {
                 // Handle the exception, for example, show an error message
                 MessageBox.Show($"Error opening the programmings form: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private Timer autoSchedulerTimer;
+
+        private void StartAutoScheduler()
+        {
+            // Initialize the Timer
+            autoSchedulerTimer = new Timer();
+            autoSchedulerTimer.Interval = 60000; // 1 minute (in milliseconds)
+            autoSchedulerTimer.Tick += AutoSchedulerTimer_Tick;
+            autoSchedulerTimer.Start();
+        }
+
+        private void AutoSchedulerTimer_Tick(object sender, EventArgs e)
+        {
+            // Get the current time
+            DateTime now = DateTime.Now;
+
+            // Check if it is 00:00 (or within a close range, such as ± 1 minute)
+            if (now.Hour == 0 && now.Minute == 0)
+            {
+                CheckAndLoadScheduleForToday();
+            }
+        }
+
+        private void CheckAndLoadScheduleForToday()
+        {
+            DateTime today = DateTime.Today;
+
+            // Check if there is a schedule for today
+            if (HasScheduleForDate(today))
+            {
+                LoadScheduleForDate(today);
+                Application.Restart();
+                Application.Exit();
+            }
+            else if (HasDailySchedule())
+            {
+                LoadDailySchedule();
+                Application.Restart();
+                Application.Exit();
+            }
+            else if (IsWeekend(today) && HasWeekendSchedule())
+            {
+                LoadWeekendSchedule();
+                Application.Restart();
+                Application.Exit();
+            }
+            else if (HasWeeklySchedule())
+            {
+                LoadWeeklySchedule();
+                Application.Restart();
+                Application.Exit();
+            }
+            else
+            {
+                // No schedule available
+            }
+        }
+
+        private bool HasScheduleForDate(DateTime date)
+        {
+            // Generate the expected file name based on the date
+            string fileName = $"botJson_{date:yyyy_MM_dd}.bak";
+
+            // Build the full file path
+            string filePath = Path.Combine(GlobalSettings.programmingDirectory, fileName);
+
+            // Check if the file exists
+            return File.Exists(filePath);
+        }
+
+        private void LoadScheduleForDate(DateTime date)
+        {
+            // Format the file based on the date
+            string dateFileName = $"botJson_{date:yyyy_MM_dd}.bak";
+
+            // Build the full file path
+            string dateFilePath = Path.Combine(GlobalSettings.programmingDirectory, dateFileName);
+
+            // Check if it exists and load the schedule
+            if (File.Exists(dateFilePath))
+            {
+                ProgrammingHandler.SetProgramming(GlobalSettings.jsonFilePath, dateFilePath, out string errorMsg);
+            }
+        }
+
+        private bool HasDailySchedule()
+        {
+            ProgrammingHandler PgmHandler = new ProgrammingHandler();
+
+            // Get the file name for the current day
+            var fileNames = PgmHandler.GetDaysFileNames();
+            DayOfWeek today = DateTime.Now.DayOfWeek;
+
+            if (fileNames.TryGetValue(today, out string fileName))
+            {
+                // Check if the file exists in the programming directory
+                string filePath = Path.Combine(GlobalSettings.programmingDirectory, fileName);
+                return File.Exists(filePath);
+            }
+
+            return false; // If there is no associated file for the day
+        }
+
+        private void LoadDailySchedule()
+        {
+            ProgrammingHandler PgmHandler = new ProgrammingHandler();
+            // Get the file name corresponding to the current day of the week
+            var dailyFileNames = PgmHandler.GetDaysFileNames();
+            DayOfWeek today = DateTime.Now.DayOfWeek;
+            dailyFileNames.TryGetValue(today, out string dailyFileName);
+
+            // Build the full file path
+            string dailyFilePath = Path.Combine(GlobalSettings.programmingDirectory, dailyFileName);
+
+            // Check if it exists and load the schedule
+            if (File.Exists(dailyFilePath))
+            {
+                ProgrammingHandler.SetProgramming(GlobalSettings.jsonFilePath, dailyFilePath, out string errorMsg);
+            }
+        }
+
+        private bool IsWeekend(DateTime date)
+        {
+            // Check if the day is Saturday or Sunday
+            return date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
+        }
+
+        private bool HasWeekendSchedule()
+        {
+            ProgrammingHandler PgmHandler = new ProgrammingHandler();
+            // Get the names of the weekly files
+            var weeklyNames = PgmHandler.GetWeeklyNames();
+
+            // Check if the weekend file exists
+            string weekendFileName = weeklyNames["SatAndSun"];
+            string weekendFilePath = Path.Combine(GlobalSettings.programmingDirectory, weekendFileName);
+
+            return File.Exists(weekendFilePath);
+        }
+
+        private void LoadWeekendSchedule()
+        {
+            ProgrammingHandler PgmHandler = new ProgrammingHandler();
+
+            // Get the names of the files
+            var weeklyNames = PgmHandler.GetWeeklyNames();
+
+            weeklyNames.TryGetValue("SatAndSun", out string weekendFileName);
+
+            // Build the full path
+            string weekendFilePath = Path.Combine(GlobalSettings.programmingDirectory, weekendFileName);
+
+            if (File.Exists(weekendFilePath))
+            {
+                // Call SetProgramming to load the schedule
+                ProgrammingHandler.SetProgramming(GlobalSettings.jsonFilePath, weekendFilePath, out string errorMsg);
+            }
+        }
+
+        private bool HasWeeklySchedule()
+        {
+            ProgrammingHandler PgmHandler = new ProgrammingHandler();
+            // Get the names of the weekly files
+            var weeklyNames = PgmHandler.GetWeeklyNames();
+
+            // Check if the Monday to Friday file exists
+            string weeklyFileName = weeklyNames["MonToFrid"];
+            string weeklyFilePath = Path.Combine(GlobalSettings.programmingDirectory, weeklyFileName);
+
+            return File.Exists(weeklyFilePath);
+        }
+
+        private void LoadWeeklySchedule()
+        {
+            ProgrammingHandler PgmHandler = new ProgrammingHandler();
+
+            // Get the names of the files
+            var weeklyNames = PgmHandler.GetWeeklyNames();
+
+            weeklyNames.TryGetValue("MonToFrid", out string weeklyFileName);
+
+            // Build the full path
+            string weeklyFilePath = Path.Combine(GlobalSettings.programmingDirectory, weeklyFileName);
+
+            if (File.Exists(weeklyFilePath))
+            {
+                // Call SetProgramming to load the schedule
+                ProgrammingHandler.SetProgramming(GlobalSettings.jsonFilePath, weeklyFilePath, out string errorMsg);
             }
         }
     }
