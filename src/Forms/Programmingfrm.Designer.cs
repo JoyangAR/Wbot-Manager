@@ -254,7 +254,7 @@
             // autoSchedulerToolStripMenuItem
             // 
             this.autoSchedulerToolStripMenuItem.Name = "autoSchedulerToolStripMenuItem";
-            this.autoSchedulerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autoSchedulerToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.autoSchedulerToolStripMenuItem.Text = "Auto Scheduler";
             this.autoSchedulerToolStripMenuItem.Click += new System.EventHandler(this.autoSchedulerToolStripMenuItem_Click);
             // 
@@ -270,6 +270,7 @@
             this.Controls.Add(this.PgmMenuStrip);
             this.MainMenuStrip = this.PgmMenuStrip;
             this.Name = "Programmingfrm";
+            this.ShowIcon = false;
             this.Text = "Programming Manager";
             this.Load += new System.EventHandler(this.Programmingfrm_Load);
             this.PgmTabControl.ResumeLayout(false);
